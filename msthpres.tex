@@ -1,31 +1,7 @@
-% $Header: /Users/joseph/Documents/LaTeX/beamer/solutions/conference-talks/conference-ornate-20min.en.tex,v 90e850259b8b 2007/01/28 20:48:30 tantau $
-
 \documentclass[10pt]{beamer}
-
-% This file is a solution template for:
-
-% - Talk at a conference/colloquium.
-% - Talk length is about 20min.
-% - Style is ornate.
-
-
-
-% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
-%
-% In principle, this file can be redistributed and/or modified under
-% the terms of the GNU Public License, version 2.
-%
-% However, this file is supposed to be a template to be modified
-% for your own needs. For this reason, if you use this file as a
-% template and not specifically distribute it as part of a another
-% package/program, I grant the extra permission to freely copy and
-% modify this file as you see fit and even to delete this copyright
-% notice. 
-
 
 \usetheme{Boadilla}
 \usecolortheme{seahorse}
-
 
 %\setbeamercovered{transparent}
 
@@ -72,24 +48,12 @@ Supervised by Prof. Andreas Krause
 % is a graphic format that can be processed by latex or pdflatex,
 % resp., then you can add a logo as follows:
 
-% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
-% \logo{\pgfuseimage{university-logo}}
-
-
-
-% Delete this, if you do not want the table of contents to pop up at
-% the beginning of each subsection:
-%\AtBeginSubsection[]
-%{
-%  \begin{frame}<beamer>{Outline}
-%    \tableofcontents[currentsection,currentsubsection]
-%  \end{frame}
-%}
+%\pgfdeclareimage[height=0.5cm]{university-logo}{figures/eth_logo_black.pdf}
+%\logo{\pgfuseimage{university-logo}}
 
 
 % If you wish to uncover everything in a step-wise fashion, uncomment
 % the following command: 
-
 %\beamerdefaultoverlayspecification{<+->}
 
 
@@ -109,10 +73,20 @@ Supervised by Prof. Andreas Krause
 
 \begin{frame}
 \begin{center}
-Swimmers of Lake Zurich, beware!
+Swimmers of Lake Zurich, beware!\\
+\vspace{0.2in}
+\includegraphics[width=4in]{figures/swimmers.jpg}\\[-0.5em]
+{\tiny (Source: Steffen Schmidt / EPA)}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\uncover<1->{Swimmers of Lake Zurich, beware!}
 \vspace{0.2in}
 \begin{columns}[c]
 \column{0.4\textwidth}
+\uncover<1->{
 \minipage[c][0.75\textheight][s]{\columnwidth}
 \includegraphics[width=1.7in]{figures/pr.jpeg}\\[-0.5em]
 {\tiny (Source: www.limnobotics.ch)}\\
@@ -120,30 +94,37 @@ Swimmers of Lake Zurich, beware!
 \includegraphics[width=1.7in]{figures/bloom.jpg}\\[-0.5em]
 {\tiny (Source: Flickr/Dr. Jennifer L. Graham/U.S. Geological Survey)}
 \endminipage
+}
 
 \column{0.6\textwidth}
 \minipage[c][0.75\textheight][s]{\columnwidth}
-{\small
+\uncover<1->{
+\small
 ``The warming waters of one of central Europe's most popular holiday
 destinations, Switzerland's Lake Zurich, have created an ideal environment
 for a population explosion of algae including \emph{Planktothrix rubescens},
 [...]''
 \qauth{Scientific American}
+}
 \vfill
-
+\uncover<2->{
+\small
 ``\emph{Planktotrhix rubescens} can account for half of the total
 phytoplankton biomass in Lake Zurich in summer [...]''
-\vfill
+\vspace{1em}
 
 ``\emph{Planktotrhix rubescens} are among the most important
 producers of hepatotoxic microcystins in freshwaters [...]''
 \qauth{Silke Van den Wyngaert \emph{et al.}, ASLO, 2011}
+}
 \vfill
-
+\uncover<3->{
+\small
 ``Microcystins [...] are cyanotoxins and can be very toxic for plants and
 animals including humans.
-Their hepatotoxicity may cause serious damage to the liver.''}
+Their hepatotoxicity may cause serious damage to the liver.''
 \qauth{Wikipedia}
+}
 \endminipage
 \end{columns}
 \end{center}
@@ -152,7 +133,7 @@ Their hepatotoxicity may cause serious damage to the liver.''}
 \begin{frame}
 \begin{center}
 \vspace{0.2in}
-\includegraphics[width=2in]{figures/manual.jpg}\\
+\includegraphics[width=2in]{figures/manual.jpg}\\[-0.5em]
 {\tiny (Source: www.limnobotics.ch)}
 \end{center}
 \end{frame}
@@ -160,7 +141,7 @@ Their hepatotoxicity may cause serious damage to the liver.''}
 \begin{frame}
 \begin{center}
 \vspace{0.2in}
-\includegraphics[width=4in]{figures/boat.jpg}\\
+\includegraphics[width=4in]{figures/boat.jpg}\\[-0.5em]
 {\tiny (Source: www.limnobotics.ch)}
 \end{center}
 \end{frame}
@@ -168,7 +149,7 @@ Their hepatotoxicity may cause serious damage to the liver.''}
 \begin{frame}
 \begin{center}
 \vspace{0.2in}
-\includegraphics[width=4in]{figures/lake.png}\\
+\includegraphics[width=4in]{figures/lake.png}\\[-0.5em]
 {\tiny (Source: www.limnobotics.ch)}
 \end{center}
 \end{frame}
@@ -200,6 +181,50 @@ Their hepatotoxicity may cause serious damage to the liver.''}
 \hspace{-2em}\includegraphics[width=4.45in]{figures/limno_bgape_cl}
 \end{center}
 \end{frame}
+
+\begin{frame}
+\begin{itemize}
+\item<1-> Pose as a sequential decision making problem (\emph{pool-based active learning}):
+\begin{itemize}
+\item<2-> No measurements available in advance, just a set (pool) of possible sampling locations ($D$)
+\vspace{0.5em}
+\item<3->[]\hspace{-1.5em} At each iteration $t \geq 1$:
+\item<3-> Decide where to measure next ($x_t$)
+\item<4-> Obtain noisy observation ($y_t = f(x_t) + n_t$)
+\item<5-> Update our estimate of the underlying function (e.g. algae concentration)
+\end{itemize}
+\end{itemize}
+\begin{center}
+\color{white}
+\includegraphics<1>[draft,width=4.45in]{figures/oned_0}
+\color{black}
+\includegraphics<2>[width=4.45in]{figures/oned_0}
+\includegraphics<3>[width=4.45in]{figures/oned_1_0}
+\includegraphics<4>[width=4.45in]{figures/oned_1_1}
+\includegraphics<5>[width=4.45in]{figures/oned_1_2}
+\includegraphics<6>[width=4.45in]{figures/oned_2_0}
+\includegraphics<7>[width=4.45in]{figures/oned_2_1}
+\includegraphics<8>[width=4.45in]{figures/oned_2_2}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{enumerate}
+\item<1-> How do we \textbf{model} the function?
+\vspace{1em}
+\item<2-> How do we \textbf{classify}?
+\vspace{1em}
+\item<3-> Each measurement is expensive (time, battery power).\\
+      How do we \textbf{select} ``informative'' measurements?
+\end{enumerate}
+\vspace{2em}
+\begin{center}
+\uncover<4->{\large
+Gaussian processes to the rescue!
+}
+\end{center}
+\end{frame}
+
 
 \section{The LSE algorithm}
 
