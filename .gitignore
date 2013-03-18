@@ -1,0 +1,11 @@
+*~
+*.bak
+*.aux
+*.log
+*.synctex
+*.toc
+*.ind
+*.dpth
+*.auxlock
+*.out
+figurefactory/factory.pdf
