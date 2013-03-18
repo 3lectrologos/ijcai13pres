@@ -8,4 +8,7 @@
 *.dpth
 *.auxlock
 *.out
+*.nav
+*.snm
+msthpres.pdf
 figurefactory/factory.pdf
