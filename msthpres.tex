@@ -210,7 +210,7 @@ Their hepatotoxicity may cause serious damage to the liver.''
 
 \begin{frame}
 \begin{enumerate}
-\item<1-> How do we \textbf{model} the function?
+\item<1-> How do we \textbf{estimate} the function?
 \vspace{1em}
 \item<2-> How do we \textbf{classify}?
 \vspace{1em}
@@ -222,6 +222,68 @@ Their hepatotoxicity may cause serious damage to the liver.''
 \uncover<4->{\large
 Gaussian processes to the rescue!
 }
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\uncover<1->{\large Why GPs are nice}
+\end{center}
+\begin{itemize}
+\item<2-> \textbf{Nonparametric}:\\
+      Impose ``smoothness'' assumptions via kernel $k(x, x')$.
+\vspace{1em}
+\item<3-> \textbf{Bayesian}, yet \textbf{efficient}:
+      \begin{align*}
+        \mu_t(\*x) &= \*k_t(\*x)^T\left(\*K_t + \sigma^2 \*I\right)^{-1}\*y_t\\
+        k_t(\*x, \*x') &= k(\*x, \*x') - \*k_t(\*x)^T\left(\*K_t + \sigma^2 \*I\right)^{-1}\*k_t(\*x)\notag\\
+        \sigma_t^2(\*x) &= k_t(\*x, \*x)
+      \end{align*}
+      Suitable for step-by-step updates.
+\vspace{1em}
+\item<4-> More importantly: they provide \textbf{variance estimates}!\\
+          Construct confidence intervals: $Q_t(\*x) = \left[\mu_{t-1}(\*x) \pm \beta_t \sigma_{t-1}(\*x)\right]$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\includegraphics<1>[width=4.45in]{figures/voned_0}
+\includegraphics<2>[width=4.45in]{figures/voned_1_0}
+\includegraphics<3>[width=4.45in]{figures/voned_1_1}
+\includegraphics<4>[width=4.45in]{figures/voned_1_2}
+\includegraphics<5>[width=4.45in]{figures/voned_2_0}
+\includegraphics<6>[width=4.45in]{figures/voned_2_1}
+\includegraphics<7>[width=4.45in]{figures/voned_2_2}
+\includegraphics<8>[width=4.45in]{figures/voned_3_0}
+\includegraphics<9>[width=4.45in]{figures/voned_3_1}
+\includegraphics<10>[width=4.45in]{figures/voned_3_2}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{enumerate}
+\item<1-> How do we \textbf{estimate} the function? \uncover<3->{\Large\color{green!70!black}\checkmark}
+\vspace{0em}
+\item<4-> How do we \textbf{classify}? \uncover<14->{\Large\color{green!70!black}\checkmark}
+\vspace{0.3em}
+\item<15-> How do we \textbf{select} ``informative'' measurements? \uncover<16->{\Large\color{green!70!black}\checkmark}
+\end{enumerate}
+
+\begin{center}
+\color{white}
+\includegraphics<1>[draft,width=3.5in]{figures/voned_cl_00}
+\color{black}
+\includegraphics<2-4>[width=3.5in]{figures/voned_cl_00}
+\includegraphics<5>[width=3.5in]{figures/voned_cl_01}
+\includegraphics<6>[width=3.5in]{figures/voned_cl_10}
+\includegraphics<7>[width=3.5in]{figures/voned_cl_11}
+\includegraphics<8>[width=3.5in]{figures/voned_cl_20}
+\includegraphics<9>[width=3.5in]{figures/voned_cl_21}
+\includegraphics<10>[width=3.5in]{figures/voned_cl_30}
+\includegraphics<11>[width=3.5in]{figures/voned_cl_31}
+\includegraphics<12>[width=3.5in]{figures/voned_cl_40}
+\includegraphics<13->[width=3.5in]{figures/voned_cl_41}
 \end{center}
 \end{frame}
 
