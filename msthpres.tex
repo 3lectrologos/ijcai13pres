@@ -1,4 +1,5 @@
-\documentclass[10pt]{beamer}
+\documentclass[10pt,mathserif,serif]{beamer}
+%\documentclass[10pt,mathserif,serif,draft, handout]{beamer}
 
 \usetheme{Boadilla}
 \usecolortheme{seahorse}
@@ -6,6 +7,7 @@
 %\setbeamercovered{transparent}
 
 \setbeamertemplate{section in toc}{$\circ$ \inserttocsection}
+\setbeamertemplate{subsection in toc}{\hspace{1em}{\footnotesize$\circ$} \inserttocsubsection}
 \setbeamertemplate{itemize item}{\scriptsize\raise1.25pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
 \setbeamertemplate{itemize subitem}{\tiny\raise1.5pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
 \setbeamertemplate{itemize subsubitem}{\tiny\raise1.5pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
@@ -14,13 +16,18 @@
 \setbeamertemplate{enumerate subsubitem}{\insertenumlabel.\insertsubenumlabel.\insertsubsubenumlabel}
 \setbeamertemplate{enumerate mini template}{\insertenumlabel}
 
+\usepackage{fontspec}
+\setmainfont[Mapping=tex-text]{Linux Libertine}
+%\setsansfont{Myriad Pro}
+%\setmonofont[Scale=0.9]{Consolas}
 \usepackage[english]{babel}
-\usepackage[latin1]{inputenc}
-\usepackage{libertine}
-\usepackage[T1]{fontenc}
+%\usepackage[latin1]{inputenc}
+%\usepackage{libertine}
+%\usepackage[T1]{fontenc}
 
 %%
 \usepackage{xspace}
+\usepackage{makecell}
 \usepackage{msthpres}
 \newcommand{\gpucb}{\textsf{GP-UCB}\xspace}
 \newcommand{\gpbucb}{\textsf{GP-BUCB}\xspace}
@@ -35,6 +42,27 @@
 \newcommand{\rstr}{\textsf{STR\textsubscript{rank}}\xspace}
 \newcommand{\var}{\textsf{VAR}\xspace}
 %%
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,shapes,fit}
+\tikzset{
+    %Define standard arrow tip
+    >=stealth',
+    %Define style for boxes
+    st/.style={
+           rectangle,
+           %rounded corners,
+           draw=black, thick,
+           %text width=6.5em,
+           minimum height=2em,
+           text centered},
+    % Define arrow style
+    pil/.style={
+           ->,
+           semithick,
+           shorten <=2pt,
+           shorten >=2pt,}
+}
 
 
 \newcommand{\qauth}[1]{{\footnotesize\par\normalfont\hfill---\ \emph{#1}\par}}
@@ -86,7 +114,7 @@ Supervised by Prof. Andreas Krause
 \end{frame}
 
 
-\section{Motivation and Background}
+\section{Motivation and background}
 
 \begin{frame}
 \begin{center}
@@ -259,7 +287,7 @@ Gaussian processes to the rescue!
       Suitable for step-by-step updates.
 \vspace{1em}
 \item<4-> More importantly: they provide \textbf{variance estimates}!\\
-          Construct confidence intervals: $Q_t(\*x) = \left[\mu_{t-1}(\*x) \pm \beta_t \sigma_{t-1}(\*x)\right]$
+          Construct confidence intervals: $Q_t(\*x) = \left[\mu_{t-1}(\*x) \pm \beta_t^{1/2} \sigma_{t-1}(\*x)\right]$
 \end{itemize}
 \end{frame}
 
@@ -313,6 +341,7 @@ Gaussian processes to the rescue!
 \end{center}
 \end{frame}
 
+\section{The LSE algorithm}
 \definecolor{c1}{RGB}{255,255,255}
 \definecolor{c2}{RGB}{27,161,226}
 \definecolor{c6}{RGB}{140,191,38}
@@ -461,24 +490,202 @@ The Level Set Estimation (\acl) algorithm
 \end{center}
 \end{frame}
 
-
-\section{The LSE algorithm}
+\subsection*{Theoretical analysis}
+\begin{frame}
+How do we judge the ``accuracy'' of a solution $(\hat{H}, \hat{L})$?
+\uncover<2->{
+\begin{definition}[Misclassification loss]
+%\begin{align*}
+$\ell_h(\*x) = \twopartdef{\max\{0, f(\*x) - h\}}{\*x\in \hat{L}}{\max\{0, h - f(\*x)\}}{\*x\in \hat{H}}$
+%\end{align*}
+\end{definition}
+\begin{center}
+\includegraphics[width=3.5in]{figures/misclass}
+\end{center}
+}
+\end{frame}
 
 \begin{frame}
+\footnotesize
+\begin{tikzpicture}[node distance=1cm, auto,]
+ \uncover<1->{
+ \node[st] (conv) {Convergence};
+ }
+
+ \uncover<3->{
+ \node[st,below=3em of conv] (clas) {All points in $D$ have been classified}
+   edge[pil] (conv);
+ }
+
+ \uncover<4->{
+ \node[st,text width=14em,below=3em of clas] (amb)
+ {\makecell[c]
+   {Conf. intervals ($\Leftrightarrow$ ambiguities)\\
+    get small enough ($<2\epsilon$)\uncover<12->{:\\[0.5em]
+    $a_t(\*x_t) \sim \mathcal{O}\left(\sqrt{\displaystyle\frac{\beta_t\gamma_t}{t}}\right)$
+    }
+   }
+ } edge[pil] (clas);
+ 
+ \uncover<4->{ 
+ \node[st,right=1.5em of clas] (eps) {$\epsilon$}
+   edge[pil] (amb);
+ }
+ 
+ \uncover<18->{ 
+ \node[st,right=1.5em of clas,fill=c6] (eps) {$\epsilon$}
+   edge[pil] (amb);
+ }
+ 
+ \node[st,draw=none,below=3em of amb] (dummy) {};
+ }
+
+ \uncover<11->{
+ \node[st,left=2em of amb] (t0) {Monotonicity}
+   edge[pil] (amb);
+ }
+ 
+ \uncover<5->{
+ \node[st,left=3em of dummy] (t1) {Samples ($t$)}
+   edge[pil] (amb);
+ }
+ 
+ \uncover<6->{
+ \node[st,right=1em of t1] (t2) {Kernel ($k$)}
+   edge[pil] (amb);
+ }
+ 
+ \uncover<7->{
+ \node[st,right=1em of t2] (t3) {Noise ($\sigma$)}
+   edge[pil] (amb);
+ }
+ 
+ \uncover<8->{
+ \node[st,right=3em of t3] (t4) {$\beta_t$}
+   edge[pil] (amb);
+ }
+ 
+ \uncover<18->{
+ \node[st,right=3em of t3,fill=c6] (t4) {$\beta_t$}
+   edge[pil] (amb);
+ }
+ 
+ \uncover<9->{
+ \node[draw=black,densely dotted,line width=0.7pt,fit=(t1)(t3)] (fit1) {};}
+ 
+ \uncover<9->{
+ \node[st,below=3em of fit1] (gamma)
+ {\makecell[c]
+   {Quantify by max. information gain (Srinivas \emph{et al.}, 2010):\\[0.5em]
+    $\gamma_t = \max_{\*y_t} I(\*y_{1:t}; f)$\uncover<10->{\\[0.5em]
+    For SE kernel $\gamma_t \sim \mathcal{O}\left((\log t)^{d+1}\right)$
+    }
+   }
+ } edge[pil] (fit1);
+ }
+
+ \uncover<2->{
+ \node[st,right=9em of conv] (acc) {Solution accuracy};
+ }
+
+ \uncover<14->{
+ \node[st,below=3em of acc] (loss) {$\max_{\*x\in D} \ell_h(\*x) \leq \epsilon$}
+   edge[pil] (acc)
+   edge[pil,<-] (eps);
+ }
+
+ \uncover<15->{
+ \node[st,right=2em of loss] (rules) {Class. rules}
+   edge[pil] (loss);
+ }
+
+ \uncover<16->{ 
+ \node[st,below=3em of loss] (est) {Correctly estimate $f$ w.h.p.}
+   edge[pil] (loss);
+ }
+
+ \uncover<16->{ 
+ \node[st,right=2em of est] (delta) {$\delta$}
+   edge[pil] (est);
+ }
+
+ \uncover<17->{
+ \node[st,below=3em of est] (large) {Conf. intervals are large enough}
+   edge[pil] (est)
+   edge[pil,<-] (t4);
+ }
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+\begin{theorem}[Convergence of \acl]
+\label{thm:acl}
+For any $h\in\mathbb{R}$, $\delta \in (0, 1)$, and $\epsilon > 0$,
+if $\beta_t = 2\log(|D|\pi^2 t^2/(6\delta))$, \acl terminates after
+at most $T$ iterations, where $T$ is the smallest positive integer
+satisfying
+\begin{align*}
+\frac{T}{\beta_T \gamma_T} \geq \frac{C_1}{4\epsilon^2},
+%T/(\beta_T \gamma_T) \geq C_1/(4\epsilon^2),
+\end{align*}
+where $C_1 = 8 / \log(1 + \sigma^{-2})$.
+
+Furthermore, with probability at least $1-\delta$, the algorithm returns
+an $\epsilon$-accurate solution, that is
+\begin{align*}
+\Pr\left\{\max_{\*x\in D}\ell_h(\*x) \leq \epsilon\right\} \geq 1 - \delta.
+\end{align*}
+\end{theorem}
+\end{frame}
+
+\subsection*{Results}
+\begin{frame}
+\begin{center}
+{\large Experiments}
+\end{center}
 \begin{enumerate}
-\item bla
+\item \acl
+\item<2-> Maximum variance sampling:
+\vspace{-0.5em}
+\begin{align*}
+\*x_t = \argmax_{\*x\in D} \sigma_{t-1}(\*x)
+\end{align*}
+\item<3-> ``Straddle'' heuristic (Bryan \emph{et al.}, 2005):
+\vspace{-0.5em}
+\begin{align*}
+\*x_t &= \argmax_{\*x\in D} 1.96\sigma_{t-1}(\*x)-|\mu_{t-1}(\*x) - h|\\
+&\approx \argmax_{\*x\in D} a_{t-1}(\*x) \tag{for $\beta_t = 1.96$}
+\end{align*}
 \end{enumerate}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\hspace{4pt}\includegraphics<1->[width=4in]{figures/limno_chl_ls}\\[0.5em]
+\uncover<2->{\includegraphics[width=2.3in]{figures/ev_chl_seq}}
+\uncover<3>{\includegraphics[width=2.3in]{figures/ev_chl_eps}}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\includegraphics<1->[width=4in]{figures/limno_bgape_ls}\\[0.5em]
+\color{white}
+\only<1>{\includegraphics[draft,width=2.3in]{figures/ev_bgape_seq}}
+\color{black}
+\only<2-4>{\includegraphics[width=2.3in]{figures/ev_bgape_seq}}
+\color{white}
+\only<2>{\includegraphics[draft,width=2.3in]{figures/ev_bgape_eps}}
+\color{black}
+\only<3>{\includegraphics[width=2.3in]{figures/ev_bgape_eps}}
+\only<4>{\includegraphics[width=2.3in]{figures/ev_bgape_seq_str_sc}}
+\only<5>{\includegraphics[width=4in]{figures/limno_bgape_class_354}}
+\only<6>{\includegraphics[width=4in]{figures/limno_bgape_str_class_400}}
+\only<7>{\includegraphics[width=4in]{figures/limno_bgape_var_class_400}}
+\end{center}
 \end{frame}
 
 \section{Extensions}
-
-\begin{frame}
-\begin{enumerate}
-\item bla
-\end{enumerate}
-\end{frame}
-
-\section{Results}
 
 \begin{frame}
 \begin{enumerate}
@@ -493,76 +700,6 @@ The Level Set Estimation (\acl) algorithm
 \item bla
 \end{enumerate}
 \end{frame}
-
-%\begin{frame}{Make Titles Informative. Use Uppercase Letters.}{Subtitles are optional.}
-%  % - A title should summarize the slide in an understandable fashion
-%  %   for anyone how does not follow everything on the slide itself.
-%
-%  \begin{itemize}
-%  \item
-%    Use \texttt{itemize} a lot.
-%  \item
-%    Use very short sentences or short phrases.
-%  \end{itemize}
-%\end{frame}
-%
-%\begin{frame}{Make Titles Informative.}
-%
-%  You can create overlays\dots
-%  \begin{itemize}
-%  \item using the \texttt{pause} command:
-%    \begin{itemize}
-%    \item
-%      First item.
-%      \pause
-%    \item    
-%      Second item.
-%    \end{itemize}
-%  \item
-%    using overlay specifications:
-%    \begin{itemize}
-%    \item<3->
-%      First item.
-%    \item<4->
-%      Second item.
-%    \end{itemize}
-%  \item
-%    using the general \texttt{uncover} command:
-%    \begin{itemize}
-%      \uncover<5->{\item
-%        First item.}
-%      \uncover<6->{\item
-%        Second item.}
-%    \end{itemize}
-%  \end{itemize}
-%\end{frame}
-
-%\begin{frame}{Summary}
-%
-%  % Keep the summary *very short*.
-%  \begin{itemize}
-%  \item
-%    The \alert{first main message} of your talk in one or two lines.
-%  \item
-%    The \alert{second main message} of your talk in one or two lines.
-%  \item
-%    Perhaps a \alert{third message}, but not more than that.
-%  \end{itemize}
-%  
-%  % The following outlook is optional.
-%  \vskip0pt plus.5fill
-%  \begin{itemize}
-%  \item
-%    Outlook
-%    \begin{itemize}
-%    \item
-%      Something you haven't solved.
-%    \item
-%      Something else you haven't solved.
-%    \end{itemize}
-%  \end{itemize}
-%\end{frame}
-
 
 \end{document}
 
