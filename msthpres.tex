@@ -1,5 +1,5 @@
 \documentclass[10pt,mathserif,serif]{beamer}
-%\documentclass[10pt,mathserif,serif,draft, handout]{beamer}
+%\documentclass[10pt,mathserif,serif,draft,handout]{beamer}
 
 \usetheme{Boadilla}
 \usecolortheme{seahorse}
@@ -658,12 +658,80 @@ an $\epsilon$-accurate solution, that is
 \end{center}
 \end{frame}
 
-\section{Extensions}
+\section{Two extensions}
 
 \begin{frame}
-\begin{enumerate}
-\item bla
-\end{enumerate}
+\begin{itemize}
+\item<1-> What if we don't know $h$?
+\item<2-> Implicitly define the threshold level: $h = \omega \max_{\*x\in D} f(\*x),\ 0 < \omega < 1$
+\item<5-> \iacl:
+\begin{itemize}
+\item<5-> Need to accurately estimate the maximum (don't exclude points that could be maximizers)
+\item<6-> Slower classification
+\end{itemize}
+\end{itemize}
+\begin{center}
+\color{white}
+\only<1-2>{\includegraphics[draft,width=3.77in]{figures/voned_cl_41_imp_1}}
+\color{black}
+\only<3>{\includegraphics[width=3.77in]{figures/voned_cl_41_imp_1}}
+\only<4->{\includegraphics[width=3.77in]{figures/voned_cl_41_imp_2}}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\includegraphics<1-14>[width=4in]{figures/limno_bgape_ls}
+\only<15>{\hspace{-1.9em}}
+\includegraphics<15>[width=3.78in]{figures/limno_bgape_class_354}
+\\
+
+\only<1>{\color{white}\small{$t = 0$\\}}
+\only<2>{\small{$t = 0$\\}}
+\only<3>{\small{$t = 20$\\}}
+\only<4>{\small{$t = 40$\\}}
+\only<5>{\small{$t = 60$\\}}
+\only<6>{\small{$t = 80$\\}}
+\only<7>{\small{$t = 100$\\}}
+\only<8>{\small{$t = 120$\\}}
+\only<9>{\small{$t = 140$\\}}
+\only<10>{\small{$t = 160$\\}}
+\only<11>{\small{$t = 180$\\}}
+\only<12>{\small{$t = 200$\\}}
+%\only<13>{\small{$t = 220$\\}}
+%\only<14>{\small{$t = 240$\\}}
+\only<13>{\small{$t = 340$\\}}
+%\only<16>{\small{$t = 280$\\}}
+%\only<17>{\small{$t = 300$\\}}
+%\only<18>{\small{$t = 320$\\}}
+%\only<19>{\small{$t = 340$\\}}
+\only<14>{\small{$t = 486$\\}}
+
+\hspace{-1.9em}
+\color{white}
+\includegraphics<1>[draft,width=3.78in]{figures/limno_bgape_class_20}
+\color{black}
+\includegraphics<2>[width=3.78in]{figures/limno_bgape_imp_class_0}
+\includegraphics<3>[width=3.78in]{figures/limno_bgape_imp_class_20}
+\includegraphics<4>[width=3.78in]{figures/limno_bgape_imp_class_40}
+\includegraphics<5>[width=3.78in]{figures/limno_bgape_imp_class_60}
+\includegraphics<6>[width=3.78in]{figures/limno_bgape_imp_class_80}
+\includegraphics<7>[width=3.78in]{figures/limno_bgape_imp_class_100}
+\includegraphics<8>[width=3.78in]{figures/limno_bgape_imp_class_120}
+\includegraphics<9>[width=3.78in]{figures/limno_bgape_imp_class_140}
+\includegraphics<10>[width=3.78in]{figures/limno_bgape_imp_class_160}
+\includegraphics<11>[width=3.78in]{figures/limno_bgape_imp_class_180}
+\includegraphics<12>[width=3.78in]{figures/limno_bgape_imp_class_200}
+\includegraphics<13>[width=3.78in]{figures/limno_bgape_imp_class_340}
+\includegraphics<14->[width=3.78in]{figures/limno_bgape_imp_class_486}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\includegraphics[width=2.3in]{figures/ev_chl_imp}
+\includegraphics[width=2.3in]{figures/ev_bgape_imp}
+\end{center}
 \end{frame}
 
 \section*{Conclusion}
