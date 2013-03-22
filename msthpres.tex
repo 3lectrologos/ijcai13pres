@@ -1,5 +1,5 @@
-\documentclass[10pt,mathserif,serif]{beamer}
-%\documentclass[10pt,mathserif,serif,handout]{beamer}
+%\documentclass[10pt,mathserif]{beamer}
+\documentclass[10pt,mathserif,handout]{beamer}
 
 \usetheme{Boadilla}
 \usecolortheme{seahorse}
@@ -327,11 +327,11 @@ Gaussian processes to the rescue!
 
 \begin{frame}
 \begin{columns}[t]
-\column{0.5\textwidth}
+\column{0.45\textwidth}
 {\footnotesize
-\begin{algorithmic}[1]
-  \REQUIRE sample set $D$, GP prior ($\mu_0 = 0$, $k$, $\sigma_0$),\\
-           \hspace{1.35em}threshold value $h$, accuracy parameter $\epsilon$
+\begin{algorithmic}
+  \REQUIRE sample set $D$, GP prior ($\mu_0$, $k$, $\sigma_0$),\\
+           \hspace{2.2em}thr. value $h$, accuracy parameter $\epsilon$
   \ENSURE predicted sets $\hat{H}$, $\hat{L}$
   \uncover<2->{
   \CSTATE{c1}$H_0 \gets \varnothing$,\enskip $L_0 \gets \varnothing$,\enskip $U_0 \gets D$ \label{lin:init1}
@@ -361,11 +361,11 @@ Gaussian processes to the rescue!
     \CENDFOR{c2}
     }
     \uncover<5->{
-    \CLET{c3}{$\*x_t$}{$\argmax_{\*x \in U_t}(a_t(\*x))$} \label{lin:sel1}
+    \CLET{c3}{$\*x_t$}{$\argmax \{a_t(\*x)\mid \*x \in U_t\}$} \label{lin:sel1}
     \CLET{c3}{$y_t$}{$f(\*x_t) + n_t$} \label{lin:sel2}
     }
     \uncover<6->{
-    \CSTATE{c4}Compute $\mu_t(\*x)$ and $\sigma_t(\*x)$, for all $\*x \in U_t$ \label{lin:inf}
+    \CSTATE{c4}Compute $\mu_t(\*x)$ and $\sigma_t(\*x)$, $\forall\*x \in U_t$ \label{lin:inf}
     }
     \uncover<3->{
     \CLET{c6}{$t$}{$t + 1$}
@@ -377,7 +377,7 @@ Gaussian processes to the rescue!
   }
 \end{algorithmic}
 }
-\column{0.5\textwidth}
+\column{0.55\textwidth}
 \begin{center}
 The Level Set Estimation (\acl) algorithm
 \end{center}
