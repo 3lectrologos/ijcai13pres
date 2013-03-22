@@ -1,5 +1,5 @@
-%\documentclass[10pt,mathserif,serif]{beamer}
-\documentclass[10pt,mathserif,serif,handout]{beamer}
+\documentclass[10pt,mathserif,serif]{beamer}
+%\documentclass[10pt,mathserif,serif,handout]{beamer}
 
 \usetheme{Boadilla}
 \usecolortheme{seahorse}
@@ -64,6 +64,11 @@
            shorten >=2pt,}
 }
 
+\newcommand{\sig}[2]{%
+\begin{tabular}{r}
+#1\\[-0.7em]
+{\tiny \color{darkgray}\it #2\hspace{0.5em}}
+\end{tabular}}
 
 \newcommand{\qauth}[1]{{\footnotesize\par\normalfont\hfill---\ \emph{#1}\par}}
 
@@ -120,8 +125,7 @@ Supervised by Prof. Andreas Krause
 \begin{center}
 Swimmers of Lake Zurich, beware!\\
 \vspace{0.2in}
-\includegraphics[width=4in]{figures/swimmers.jpg}\\[-0.5em]
-{\tiny (Source: Steffen Schmidt / EPA)}
+\sig{\includegraphics[width=4in]{figures/swimmers.jpg}}{Steffen Schmidt / EPA}
 \end{center}
 \end{frame}
 
@@ -132,17 +136,11 @@ Swimmers of Lake Zurich, beware!\\
 \begin{columns}[c]
 \column{0.4\textwidth}
 \uncover<1->{
-\minipage[c][0.75\textheight][s]{\columnwidth}
-\includegraphics[width=1.7in]{figures/pr.jpeg}\\[-0.5em]
-{\tiny (Source: www.limnobotics.ch)}\\
-\vfill
-\includegraphics[width=1.7in]{figures/bloom.jpg}\\[-0.5em]
-{\tiny (Source: Flickr/Dr. Jennifer L. Graham/U.S. Geological Survey)}
-\endminipage
+\sig{\includegraphics[width=1.7in]{figures/pr.jpeg}}{www.limnobotics.ch}\\[1em]
+\sig{\includegraphics[width=1.7in]{figures/bloom.jpg}}{Flickr/Dr. Jennifer L. Graham/U.S. Geological Survey}
 }
-
 \column{0.6\textwidth}
-\minipage[c][0.75\textheight][s]{\columnwidth}
+\minipage[c][0.80\textheight][s]{\columnwidth}
 \uncover<1->{
 \small
 ``The warming waters of one of central Europe's most popular holiday
@@ -179,14 +177,14 @@ Their hepatotoxicity may cause serious damage to the liver.''
 \begin{center}
 \vspace{0.2in}
 \only<1>{
-\includegraphics[width=2in]{figures/manual.jpg}\\[-0.5em]
-{\tiny (Source: www.limnobotics.ch)}}
+\sig{\includegraphics[width=2in]{figures/manual.jpg}}{www.limnobotics.ch}
+}
 \only<2>{
-\includegraphics[width=4in]{figures/boat.jpg}\\[-0.5em]
-{\tiny (Source: www.limnobotics.ch)}}
+\sig{\includegraphics[width=4in]{figures/boat.jpg}}{www.limnobotics.ch}
+}
 \only<3>{
-\includegraphics[width=4in]{figures/lake.png}\\[-0.5em]
-{\tiny (Source: www.limnobotics.ch)}}
+\sig{\includegraphics[width=4in]{figures/lake.png}}{www.limnobotics.ch}
+}
 \end{center}
 \end{frame}
 
@@ -750,29 +748,29 @@ an $\epsilon$-accurate solution, that is
 \color{white}
 \includegraphics<1-3>[draft,width=3.78in]{figures/limno_bgape_pp_0_0}
 \color{black}
-\includegraphics<4>[width=3.78in]{figures/limno_bgape_pp_0_0}
-\includegraphics<5>[width=3.78in]{figures/limno_bgape_pp_0_1}
-\includegraphics<6>[width=3.78in]{figures/limno_bgape_pp_0_2}
-\includegraphics<7>[width=3.78in]{figures/limno_bgape_pp_30_0}
-\includegraphics<8>[width=3.78in]{figures/limno_bgape_pp_30_1}
-\includegraphics<9>[width=3.78in]{figures/limno_bgape_pp_30_2}
-\includegraphics<10>[width=3.78in]{figures/limno_bgape_pp_60_0}
-\includegraphics<11>[width=3.78in]{figures/limno_bgape_pp_60_1}
-\includegraphics<12>[width=3.78in]{figures/limno_bgape_pp_60_2}
-\includegraphics<13>[width=3.78in]{figures/limno_bgape_pp_90_0}
-\includegraphics<14>[width=3.78in]{figures/limno_bgape_pp_90_1}
-\includegraphics<15>[width=3.78in]{figures/limno_bgape_pp_90_2}
-\includegraphics<16>[width=3.78in]{figures/limno_bgape_pp_120_0}
-\includegraphics<17>[width=3.78in]{figures/limno_bgape_pp_120_1}
-\includegraphics<18>[width=3.78in]{figures/limno_bgape_pp_120_2}
-\includegraphics<19>[width=3.78in]{figures/limno_bgape_pp_150_0}
-\includegraphics<20>[width=3.78in]{figures/limno_bgape_pp_150_1}
-\includegraphics<21>[width=3.78in]{figures/limno_bgape_pp_150_2}
-\includegraphics<22>[width=3.78in]{figures/limno_bgape_pp_180_0}
-\includegraphics<23>[width=3.78in]{figures/limno_bgape_pp_180_1}
-\includegraphics<24>[width=3.78in]{figures/limno_bgape_pp_180_2}
-\includegraphics<25>[width=3.78in]{figures/limno_bgape_pp_210_0}
-\includegraphics<26>[width=2.7in]{figures/ev_bgape_pp}
+\includegraphics<4>[height=1.8in]{figures/limno_bgape_pp_0_0}
+\includegraphics<5>[height=1.8in]{figures/limno_bgape_pp_0_1}
+\includegraphics<6>[height=1.8in]{figures/limno_bgape_pp_0_2}
+\includegraphics<7>[height=1.8in]{figures/limno_bgape_pp_30_0}
+\includegraphics<8>[height=1.8in]{figures/limno_bgape_pp_30_1}
+\includegraphics<9>[height=1.8in]{figures/limno_bgape_pp_30_2}
+\includegraphics<10>[height=1.8in]{figures/limno_bgape_pp_60_0}
+\includegraphics<11>[height=1.8in]{figures/limno_bgape_pp_60_1}
+\includegraphics<12>[height=1.8in]{figures/limno_bgape_pp_60_2}
+\includegraphics<13>[height=1.8in]{figures/limno_bgape_pp_90_0}
+\includegraphics<14>[height=1.8in]{figures/limno_bgape_pp_90_1}
+\includegraphics<15>[height=1.8in]{figures/limno_bgape_pp_90_2}
+\includegraphics<16>[height=1.8in]{figures/limno_bgape_pp_120_0}
+\includegraphics<17>[height=1.8in]{figures/limno_bgape_pp_120_1}
+\includegraphics<18>[height=1.8in]{figures/limno_bgape_pp_120_2}
+\includegraphics<19>[height=1.8in]{figures/limno_bgape_pp_150_0}
+\includegraphics<20>[height=1.8in]{figures/limno_bgape_pp_150_1}
+\includegraphics<21>[height=1.8in]{figures/limno_bgape_pp_150_2}
+\includegraphics<22>[height=1.8in]{figures/limno_bgape_pp_180_0}
+\includegraphics<23>[height=1.8in]{figures/limno_bgape_pp_180_1}
+\includegraphics<24>[height=1.8in]{figures/limno_bgape_pp_180_2}
+\includegraphics<25>[height=1.8in]{figures/limno_bgape_pp_210_0}
+\includegraphics<26>[height=1.8in]{figures/ev_bgape_pp}
 \end{center}
 \end{frame}
 
@@ -802,7 +800,7 @@ an $\epsilon$-accurate solution, that is
 \begin{center}
 \large Questions?\\
 \vspace{2em}
-\includegraphics[width=3in]{figures/dilbert}
+\sig{\includegraphics[width=3in]{figures/dilbert}}{www.dilbert.com}
 \end{center}
 \end{frame}
 
