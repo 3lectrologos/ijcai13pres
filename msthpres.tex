@@ -1,5 +1,5 @@
-%\documentclass[10pt,mathserif]{beamer}
-\documentclass[10pt,mathserif,handout]{beamer}
+\documentclass[10pt,mathserif]{beamer}
+%\documentclass[10pt,mathserif,handout]{beamer}
 
 \usetheme{Boadilla}
 \usecolortheme{seahorse}
@@ -135,7 +135,7 @@ Swimmers of Lake Zurich, beware!\\
 \vspace{0.2in}
 \begin{columns}[c]
 \column{0.4\textwidth}
-\uncover<1->{
+\uncover<2->{
 \sig{\includegraphics[width=1.7in]{figures/pr.jpeg}}{www.limnobotics.ch}\\[1em]
 \sig{\includegraphics[width=1.7in]{figures/bloom.jpg}}{Flickr/Dr. Jennifer L. Graham/U.S. Geological Survey}
 }
@@ -146,24 +146,24 @@ Swimmers of Lake Zurich, beware!\\
 ``The warming waters of one of central Europe's most popular holiday
 destinations, Switzerland's Lake Zurich, have created an ideal environment
 for a population explosion of algae including \emph{Planktothrix rubescens},
-[...]''
+[\ldots]''
 \qauth{Scientific American}
-}
-\vfill
-\uncover<2->{
-\small
-``\emph{Planktotrhix rubescens} can account for half of the total
-phytoplankton biomass in Lake Zurich in summer [...]''
-\vspace{1em}
-
-``\emph{Planktotrhix rubescens} are among the most important
-producers of hepatotoxic microcystins in freshwaters [...]''
-\qauth{Silke Van den Wyngaert \emph{et al.}, ASLO, 2011}
 }
 \vfill
 \uncover<3->{
 \small
-``Microcystins [...] are cyanotoxins and can be very toxic for plants and
+``\emph{Planktotrhix rubescens} can account for half of the total
+phytoplankton biomass in Lake Zurich in summer [\ldots]''
+\vspace{1em}
+
+``\emph{Planktotrhix rubescens} are among the most important
+producers of hepatotoxic microcystins in freshwaters [\ldots]''
+\qauth{Silke Van den Wyngaert \emph{et al.}, ASLO, 2011}
+}
+\vfill
+\uncover<4->{
+\small
+``Microcystins [\ldots] are cyanotoxins and can be very toxic for plants and
 animals including humans.
 Their hepatotoxicity may cause serious damage to the liver.''
 \qauth{Wikipedia}
@@ -257,7 +257,7 @@ Gaussian processes to the rescue!
       \end{align*}
       Suitable for step-by-step updates.
 \vspace{1em}
-\item<4-> More importantly: they provide \textbf{variance estimates}!\\
+\item<4-> They provide \textbf{variance estimates}!\\
           Construct confidence intervals: $Q_t(\*x) = \left[\mu_{t-1}(\*x) \pm \beta_t^{1/2} \sigma_{t-1}(\*x)\right]$
 \end{itemize}
 \end{frame}
@@ -512,7 +512,7 @@ $\ell_h(\*x) = \twopartdef{\max\{0, f(\*x) - h\}}{\*x\in \hat{L}}{\max\{0, h - f
  }
 
  \uncover<11->{
- \node[st,left=2em of amb] (t0) {Monotonicity}
+ \node[st,left=1.5em of amb] (t0) {Monotonicity}
    edge[pil] (amb);
  }
  
@@ -566,7 +566,7 @@ $\ell_h(\*x) = \twopartdef{\max\{0, f(\*x) - h\}}{\*x\in \hat{L}}{\max\{0, h - f
  }
 
  \uncover<15->{
- \node[st,right=2em of loss] (rules) {Class. rules}
+ \node[st,right=1.5em of loss] (rules) {Class. rules}
    edge[pil] (loss);
  }
 
@@ -576,7 +576,7 @@ $\ell_h(\*x) = \twopartdef{\max\{0, f(\*x) - h\}}{\*x\in \hat{L}}{\max\{0, h - f
  }
 
  \uncover<16->{ 
- \node[st,right=2em of est] (delta) {$\delta$}
+ \node[st,right=1.5em of est] (delta) {$\delta$}
    edge[pil] (est);
  }
 
@@ -740,7 +740,7 @@ an $\epsilon$-accurate solution, that is
 \begin{itemize}
 \item Select a \emph{batch} of sampling locations
 \item Connect them using a Euclidean TSP path
-\item Traverse the path and collect measurements
+\item Traverse path and collect measurements
 \end{itemize}
 \end{itemize}
 
@@ -784,13 +784,13 @@ an $\epsilon$-accurate solution, that is
 \begin{itemize}
 \item<1-> \acl algorithm:
 \begin{itemize}
-\item<2-> \begin{tabular}{m{5.5cm} >{\centering}m{4cm}}Theoretical guarantees & \includegraphics[width=1.3in]{figures/thm.png} \end{tabular}
-\item<3-> \begin{tabular}{m{5.5cm} >{\centering}m{4cm}}Competitive with the state-of-the-art in practice (sometimes considerably superior) & \hspace{-0.5em}\includegraphics[width=1.3in]{figures/ev_bgape_seq_long} \end{tabular}
+\item<2-> \begin{tabular}{m{5.7cm} >{\centering}m{4cm}}Theoretical guarantees & \includegraphics[width=1.3in]{figures/thm.png} \end{tabular}
+\item<3-> \begin{tabular}{m{5.7cm} >{\centering}m{4cm}}Competitive with the state-of-the-art in practice (sometimes considerably superior) & \hspace{-0.5em}\includegraphics[width=1.3in]{figures/ev_bgape_seq_long} \end{tabular}
 \end{itemize}
 \item<4-> Two useful extensions:
 \begin{itemize}
-\item<5-> \begin{tabular}{m{5.5cm} >{\centering}m{4cm}}Implicit threshold level & \includegraphics[width=1.3in]{figures/limno_bgape_imp_class_140} \end{tabular}
-\item<6-> \begin{tabular}{m{5.5cm} >{\centering}m{4cm}}Batch sampling $\rightarrow$ path planning & \includegraphics[width=1.3in]{figures/limno_bgape_pp_30_2} \end{tabular}
+\item<5-> \begin{tabular}{m{5.7cm} >{\centering}m{4cm}}Implicit threshold level & \includegraphics[width=1.3in]{figures/limno_bgape_imp_class_140} \end{tabular}
+\item<6-> \begin{tabular}{m{5.7cm} >{\centering}m{4cm}}Batch sampling $\rightarrow$ path planning & \includegraphics[width=1.3in]{figures/limno_bgape_pp_30_2} \end{tabular}
 \end{itemize}
 \item<7-> Look out for algae when swimming in Lake Zurich! =)
 \end{itemize}
