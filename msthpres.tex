@@ -462,135 +462,246 @@ The Level Set Estimation (\acl) algorithm
 \end{frame}
 
 \subsection*{Theoretical analysis}
-\begin{frame}
-How do we judge the ``accuracy'' of a solution $(\hat{H}, \hat{L})$?
-\uncover<2->{
-\begin{definition}[Misclassification loss]
-%\begin{align*}
-$\ell_h(\*x) = \twopartdef{\max\{0, f(\*x) - h\}}{\*x\in \hat{L}}{\max\{0, h - f(\*x)\}}{\*x\in \hat{H}}$
-%\end{align*}
-\end{definition}
-\begin{center}
-\includegraphics[width=3.5in]{figures/misclass}
-\end{center}
-}
-\end{frame}
+%\begin{frame}
+%How do we judge the ``accuracy'' of a solution $(\hat{H}, \hat{L})$?
+%\uncover<2->{
+%\begin{definition}[Misclassification loss]
+%%\begin{align*}
+%$\ell_h(\*x) = \twopartdef{\max\{0, f(\*x) - h\}}{\*x\in \hat{L}}{\max\{0, h - f(\*x)\}}{\*x\in \hat{H}}$
+%%\end{align*}
+%\end{definition}
+%\begin{center}
+%\includegraphics[width=3.5in]{figures/misclass}
+%\end{center}
+%}
+%\end{frame}
 
-\begin{frame}
-\footnotesize
-\begin{tikzpicture}[node distance=1cm, auto,]
- \uncover<1->{
- \node[st] (conv) {Convergence};
- }
+%\begin{frame}
+%\footnotesize
+%\begin{tikzpicture}[node distance=1cm, auto,]
+% \uncover<1->{
+% \node[st] (conv) {Convergence};
+% }
+%
+% \uncover<3->{
+% \node[st,below=3em of conv] (clas) {All points in $D$ have been classified}
+%   edge[pil] (conv);
+% }
+%
+% \uncover<4->{
+% \node[st,text width=14em,below=3em of clas] (amb)
+% {\makecell[c]
+%   {Conf. intervals ($\Leftrightarrow$ ambiguities)\\
+%    get small enough ($<2\epsilon$)\uncover<12->{:\\[0.5em]
+%    $a_t(\*x_t) \sim \mathcal{O}\left(\sqrt{\displaystyle\frac{\beta_t\gamma_t}{t}}\right)$
+%    }
+%   }
+% } edge[pil] (clas);
+% 
+% \uncover<4->{ 
+% \node[st,right=1.5em of clas] (eps) {$\epsilon$}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<18->{ 
+% \node[st,right=1.5em of clas,fill=c6] (eps) {$\epsilon$}
+%   edge[pil] (amb);
+% }
+% 
+% \node[st,draw=none,below=3em of amb] (dummy) {};
+% }
+%
+% \uncover<11->{
+% \node[st,left=1.5em of amb] (t0) {Monotonicity}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<5->{
+% \node[st,left=3em of dummy] (t1) {Samples ($t$)}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<6->{
+% \node[st,right=1em of t1] (t2) {Kernel ($k$)}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<7->{
+% \node[st,right=1em of t2] (t3) {Noise ($\sigma$)}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<8->{
+% \node[st,right=3em of t3] (t4) {$\beta_t$}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<18->{
+% \node[st,right=3em of t3,fill=c6] (t4) {$\beta_t$}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<9->{
+% \node[draw=black,densely dotted,line width=0.7pt,fit=(t1)(t3)] (fit1) {};}
+% 
+% \uncover<9->{
+% \node[st,below=3em of fit1] (gamma)
+% {\makecell[c]
+%   {Quantify by max. information gain (Srinivas \emph{et al.}, 2010):\\[0.5em]
+%    $\gamma_t = \max_{\*y_t} I(\*y_{1:t}; f)$\uncover<10->{\\[0.5em]
+%    For SE kernel $\gamma_t \sim \mathcal{O}\left((\log t)^{d+1}\right)$
+%    }
+%   }
+% } edge[pil] (fit1);
+% }
+%
+% \uncover<2->{
+% \node[st,right=9em of conv] (acc) {Solution accuracy};
+% }
+%
+% \uncover<14->{
+% \node[st,below=3em of acc] (loss) {$\max_{\*x\in D} \ell_h(\*x) \leq \epsilon$}
+%   edge[pil] (acc)
+%   edge[pil,<-] (eps);
+% }
+%
+% \uncover<15->{
+% \node[st,right=1.5em of loss] (rules) {Class. rules}
+%   edge[pil] (loss);
+% }
+%
+% \uncover<16->{ 
+% \node[st,below=3em of loss] (est) {Correctly estimate $f$ w.h.p.}
+%   edge[pil] (loss);
+% }
+%
+% \uncover<16->{ 
+% \node[st,right=1.5em of est] (delta) {$\delta$}
+%   edge[pil] (est);
+% }
+%
+% \uncover<17->{
+% \node[st,below=3em of est] (large) {Conf. intervals are large enough}
+%   edge[pil] (est)
+%   edge[pil,<-] (t4);
+% }
+%\end{tikzpicture}
+%\end{frame}
 
- \uncover<3->{
- \node[st,below=3em of conv] (clas) {All points in $D$ have been classified}
-   edge[pil] (conv);
- }
-
- \uncover<4->{
- \node[st,text width=14em,below=3em of clas] (amb)
- {\makecell[c]
-   {Conf. intervals ($\Leftrightarrow$ ambiguities)\\
-    get small enough ($<2\epsilon$)\uncover<12->{:\\[0.5em]
-    $a_t(\*x_t) \sim \mathcal{O}\left(\sqrt{\displaystyle\frac{\beta_t\gamma_t}{t}}\right)$
-    }
-   }
- } edge[pil] (clas);
- 
- \uncover<4->{ 
- \node[st,right=1.5em of clas] (eps) {$\epsilon$}
-   edge[pil] (amb);
- }
- 
- \uncover<18->{ 
- \node[st,right=1.5em of clas,fill=c6] (eps) {$\epsilon$}
-   edge[pil] (amb);
- }
- 
- \node[st,draw=none,below=3em of amb] (dummy) {};
- }
-
- \uncover<11->{
- \node[st,left=1.5em of amb] (t0) {Monotonicity}
-   edge[pil] (amb);
- }
- 
- \uncover<5->{
- \node[st,left=3em of dummy] (t1) {Samples ($t$)}
-   edge[pil] (amb);
- }
- 
- \uncover<6->{
- \node[st,right=1em of t1] (t2) {Kernel ($k$)}
-   edge[pil] (amb);
- }
- 
- \uncover<7->{
- \node[st,right=1em of t2] (t3) {Noise ($\sigma$)}
-   edge[pil] (amb);
- }
- 
- \uncover<8->{
- \node[st,right=3em of t3] (t4) {$\beta_t$}
-   edge[pil] (amb);
- }
- 
- \uncover<18->{
- \node[st,right=3em of t3,fill=c6] (t4) {$\beta_t$}
-   edge[pil] (amb);
- }
- 
- \uncover<9->{
- \node[draw=black,densely dotted,line width=0.7pt,fit=(t1)(t3)] (fit1) {};}
- 
- \uncover<9->{
- \node[st,below=3em of fit1] (gamma)
- {\makecell[c]
-   {Quantify by max. information gain (Srinivas \emph{et al.}, 2010):\\[0.5em]
-    $\gamma_t = \max_{\*y_t} I(\*y_{1:t}; f)$\uncover<10->{\\[0.5em]
-    For SE kernel $\gamma_t \sim \mathcal{O}\left((\log t)^{d+1}\right)$
-    }
-   }
- } edge[pil] (fit1);
- }
-
- \uncover<2->{
- \node[st,right=9em of conv] (acc) {Solution accuracy};
- }
-
- \uncover<14->{
- \node[st,below=3em of acc] (loss) {$\max_{\*x\in D} \ell_h(\*x) \leq \epsilon$}
-   edge[pil] (acc)
-   edge[pil,<-] (eps);
- }
-
- \uncover<15->{
- \node[st,right=1.5em of loss] (rules) {Class. rules}
-   edge[pil] (loss);
- }
-
- \uncover<16->{ 
- \node[st,below=3em of loss] (est) {Correctly estimate $f$ w.h.p.}
-   edge[pil] (loss);
- }
-
- \uncover<16->{ 
- \node[st,right=1.5em of est] (delta) {$\delta$}
-   edge[pil] (est);
- }
-
- \uncover<17->{
- \node[st,below=3em of est] (large) {Conf. intervals are large enough}
-   edge[pil] (est)
-   edge[pil,<-] (t4);
- }
-\end{tikzpicture}
-\end{frame}
+%\begin{frame}
+%\footnotesize
+%\begin{tikzpicture}[node distance=1cm, auto,]
+% \uncover<1->{
+% \node[st] (conv) {Convergence};
+% }
+%
+% \uncover<1->{
+% \node[st,below=3em of conv] (clas) {All points in $D$ have been classified}
+%   edge[pil] (conv);
+% }
+%
+% \uncover<1->{
+% \node[st,text width=14em,below=3em of clas] (amb)
+% {\makecell[c]
+%   {Conf. intervals ($\Leftrightarrow$ ambiguities)\\
+%    get small enough ($<2\epsilon$)\uncover<1->{:\\[0.5em]
+%    $a_t(\*x_t) \sim \mathcal{O}\left(\sqrt{\displaystyle\frac{\beta_t\gamma_t}{t}}\right)$
+%    }
+%   }
+% } edge[pil] (clas);
+% 
+% \uncover<1->{ 
+% \node[st,right=1.5em of clas] (eps) {$\epsilon$}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<1->{ 
+% \node[st,right=1.5em of clas,fill=c6] (eps) {$\epsilon$}
+%   edge[pil] (amb);
+% }
+% 
+% \node[st,draw=none,below=3em of amb] (dummy) {};
+% }
+%
+% \uncover<1->{
+% \node[st,left=1.5em of amb] (t0) {Monotonicity}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<1->{
+% \node[st,left=3em of dummy] (t1) {Samples ($t$)}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<1->{
+% \node[st,right=1em of t1] (t2) {Kernel ($k$)}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<1->{
+% \node[st,right=1em of t2] (t3) {Noise ($\sigma$)}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<1->{
+% \node[st,right=3em of t3] (t4) {$\beta_t$}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<1->{
+% \node[st,right=3em of t3,fill=c6] (t4) {$\beta_t$}
+%   edge[pil] (amb);
+% }
+% 
+% \uncover<1->{
+% \node[draw=black,densely dotted,line width=0.7pt,fit=(t1)(t3)] (fit1) {};}
+% 
+% \uncover<1->{
+% \node[st,below=3em of fit1] (gamma)
+% {\makecell[c]
+%   {Quantify by max. information gain (Srinivas \emph{et al.}, 2010):\\[0.5em]
+%    $\gamma_t = \max_{\*y_t} I(\*y_{1:t}; f)$\uncover<1->{\\[0.5em]
+%    For SE kernel $\gamma_t \sim \mathcal{O}\left((\log t)^{d+1}\right)$
+%    }
+%   }
+% } edge[pil] (fit1);
+% }
+%
+% \uncover<1->{
+% \node[st,right=9em of conv] (acc) {Solution accuracy};
+% }
+%
+% \uncover<1->{
+% \node[st,below=3em of acc] (loss) {$\max_{\*x\in D} \ell_h(\*x) \leq \epsilon$}
+%   edge[pil] (acc)
+%   edge[pil,<-] (eps);
+% }
+%
+% \uncover<1->{
+% \node[st,right=1.5em of loss] (rules) {Class. rules}
+%   edge[pil] (loss);
+% }
+%
+% \uncover<1->{ 
+% \node[st,below=3em of loss] (est) {Correctly estimate $f$ w.h.p.}
+%   edge[pil] (loss);
+% }
+%
+% \uncover<1->{ 
+% \node[st,right=1.5em of est] (delta) {$\delta$}
+%   edge[pil] (est);
+% }
+%
+% \uncover<1->{
+% \node[st,below=3em of est] (large) {Conf. intervals are large enough}
+%   edge[pil] (est)
+%   edge[pil,<-] (t4);
+% }
+%\end{tikzpicture}
+%\end{frame}
 
 \begin{frame}
 \begin{theorem}[Convergence of \acl]
-\label{thm:acl}
 For any $h\in\mathbb{R}$, $\delta \in (0, 1)$, and $\epsilon > 0$,
 if $\beta_t = 2\log(|D|\pi^2 t^2/(6\delta))$, \acl terminates after
 at most $T$ iterations, where $T$ is the smallest positive integer
@@ -606,6 +717,21 @@ an $\epsilon$-accurate solution, that is
 \begin{align*}
 \Pr\left\{\max_{\*x\in D}\ell_h(\*x) \leq \epsilon\right\} \geq 1 - \delta.
 \end{align*}
+\end{theorem}
+\end{frame}
+
+\begin{frame}
+\begin{theorem}[Simplified]
+If we choose $\beta_t$ large enough, then:
+\begin{itemize}
+\item<2-> \acl terminates after a number of iterations $T$
+\begin{enumerate}
+\item<3-> smoother kernel $\Rightarrow T \downarrow$
+\item<4-> $\sigma \uparrow\ \Rightarrow T \uparrow$
+\item<5-> ${\color<7>{red}\epsilon} \uparrow\ \Rightarrow T \downarrow$
+\end{enumerate}
+\item<6-> The solution returned is {\color<7>{red}$\epsilon$}-accurate with high probability
+\end{itemize}
 \end{theorem}
 \end{frame}
 
