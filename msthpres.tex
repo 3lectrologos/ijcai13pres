@@ -1,5 +1,5 @@
-\documentclass[10pt,mathserif,serif]{beamer}
-%\documentclass[10pt,mathserif,serif,draft,handout]{beamer}
+%\documentclass[10pt,mathserif,serif]{beamer}
+\documentclass[10pt,mathserif,serif,handout]{beamer}
 
 \usetheme{Boadilla}
 \usecolortheme{seahorse}
@@ -734,14 +734,76 @@ an $\epsilon$-accurate solution, that is
 \end{center}
 \end{frame}
 
+\begin{frame}
+\begin{itemize}
+\item<1-> Up to this point we have assumed a fixed cost per sample
+\item<2-> What about the traveling distance between measurements?
+\item<3-> Plan ahead:
+\begin{itemize}
+\item Select a \emph{batch} of sampling locations
+\item Connect them using a Euclidean TSP path
+\item Traverse the path and collect measurements
+\end{itemize}
+\end{itemize}
+
+\begin{center}
+\color{white}
+\includegraphics<1-3>[draft,width=3.78in]{figures/limno_bgape_pp_0_0}
+\color{black}
+\includegraphics<4>[width=3.78in]{figures/limno_bgape_pp_0_0}
+\includegraphics<5>[width=3.78in]{figures/limno_bgape_pp_0_1}
+\includegraphics<6>[width=3.78in]{figures/limno_bgape_pp_0_2}
+\includegraphics<7>[width=3.78in]{figures/limno_bgape_pp_30_0}
+\includegraphics<8>[width=3.78in]{figures/limno_bgape_pp_30_1}
+\includegraphics<9>[width=3.78in]{figures/limno_bgape_pp_30_2}
+\includegraphics<10>[width=3.78in]{figures/limno_bgape_pp_60_0}
+\includegraphics<11>[width=3.78in]{figures/limno_bgape_pp_60_1}
+\includegraphics<12>[width=3.78in]{figures/limno_bgape_pp_60_2}
+\includegraphics<13>[width=3.78in]{figures/limno_bgape_pp_90_0}
+\includegraphics<14>[width=3.78in]{figures/limno_bgape_pp_90_1}
+\includegraphics<15>[width=3.78in]{figures/limno_bgape_pp_90_2}
+\includegraphics<16>[width=3.78in]{figures/limno_bgape_pp_120_0}
+\includegraphics<17>[width=3.78in]{figures/limno_bgape_pp_120_1}
+\includegraphics<18>[width=3.78in]{figures/limno_bgape_pp_120_2}
+\includegraphics<19>[width=3.78in]{figures/limno_bgape_pp_150_0}
+\includegraphics<20>[width=3.78in]{figures/limno_bgape_pp_150_1}
+\includegraphics<21>[width=3.78in]{figures/limno_bgape_pp_150_2}
+\includegraphics<22>[width=3.78in]{figures/limno_bgape_pp_180_0}
+\includegraphics<23>[width=3.78in]{figures/limno_bgape_pp_180_1}
+\includegraphics<24>[width=3.78in]{figures/limno_bgape_pp_180_2}
+\includegraphics<25>[width=3.78in]{figures/limno_bgape_pp_210_0}
+\includegraphics<26>[width=2.7in]{figures/ev_bgape_pp}
+\end{center}
+\end{frame}
+
 \section*{Conclusion}
 
 \begin{frame}
-\begin{enumerate}
-\item bla
-\end{enumerate}
+\begin{center}
+\large Summary
+\end{center}
+\vspace{-1em}
+\begin{itemize}
+\item<1-> \acl algorithm:
+\begin{itemize}
+\item<2-> \begin{tabular}{m{5.5cm} >{\centering}m{4cm}}Theoretical guarantees & \includegraphics[width=1.3in]{figures/thm.png} \end{tabular}
+\item<3-> \begin{tabular}{m{5.5cm} >{\centering}m{4cm}}Competitive with the state-of-the-art in practice (sometimes considerably superior) & \hspace{-0.5em}\includegraphics[width=1.3in]{figures/ev_bgape_seq_long} \end{tabular}
+\end{itemize}
+\item<4-> Two useful extensions:
+\begin{itemize}
+\item<5-> \begin{tabular}{m{5.5cm} >{\centering}m{4cm}}Implicit threshold level & \includegraphics[width=1.3in]{figures/limno_bgape_imp_class_140} \end{tabular}
+\item<6-> \begin{tabular}{m{5.5cm} >{\centering}m{4cm}}Batch sampling $\rightarrow$ path planning & \includegraphics[width=1.3in]{figures/limno_bgape_pp_30_2} \end{tabular}
+\end{itemize}
+\item<7-> Look out for algae when swimming in Lake Zurich! =)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\large Questions?\\
+\vspace{2em}
+\includegraphics[width=3in]{figures/dilbert}
+\end{center}
 \end{frame}
 
 \end{document}
-
-
