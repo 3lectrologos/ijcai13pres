@@ -207,7 +207,7 @@ Their hepatotoxicity may cause serious damage to the liver.''
 \item<3->[]\hspace{-1.5em} At each iteration $t \geq 1$:
 \item<3-> Decide where to measure next ($x_t$)
 \item<4-> Obtain noisy observation ($y_t = f(x_t) + n_t$)
-\item<5-> Update our estimate of the underlying function (e.g. algae concentration)
+\item<5-> Update our estimate of the underlying function
 \end{itemize}
 \end{itemize}
 \begin{center}
@@ -787,19 +787,21 @@ If we choose $\beta_t$ large enough, then:
 \begin{frame}
 \begin{itemize}
 \item<1-> What if we don't know $h$?
+\vspace{1em}
 \item<2-> Implicitly define the threshold level: $h = \omega \max_{\*x\in D} f(\*x),\ 0 < \omega < 1$
-\item<5-> \iacl:
+\vspace{1em}
+\item<3-> \iacl:
 \begin{itemize}
-\item<5-> Need to accurately estimate the maximum (don't exclude points that could be maximizers)
-\item<6-> Slower classification
+\item<4-> Need to also estimate the maximum
+\item<5-> Slower classification due to uncertainty about $h$
 \end{itemize}
 \end{itemize}
 \begin{center}
-\color{white}
-\only<1-2>{\includegraphics[draft,width=3.77in]{figures/voned_cl_41_imp_1}}
-\color{black}
-\only<3>{\includegraphics[width=3.77in]{figures/voned_cl_41_imp_1}}
-\only<4->{\includegraphics[width=3.77in]{figures/voned_cl_41_imp_2}}
+%\color{white}
+%\only<1-2>{\includegraphics[draft,width=3.77in]{figures/voned_cl_41_imp_1}}
+%\color{black}
+%\only<3>{\includegraphics[width=3.77in]{figures/voned_cl_41_imp_1}}
+%\only<4->{\includegraphics[width=3.77in]{figures/voned_cl_41_imp_2}}
 \end{center}
 \end{frame}
 
@@ -851,12 +853,12 @@ If we choose $\beta_t$ large enough, then:
 \end{center}
 \end{frame}
 
-\begin{frame}
-\begin{center}
-\includegraphics[width=2.3in]{figures/ev_chl_imp}
-\includegraphics[width=2.3in]{figures/ev_bgape_imp}
-\end{center}
-\end{frame}
+%\begin{frame}
+%\begin{center}
+%\includegraphics[width=2.3in]{figures/ev_chl_imp}
+%\includegraphics[width=2.3in]{figures/ev_bgape_imp}
+%\end{center}
+%\end{frame}
 
 \begin{frame}
 \begin{itemize}
@@ -872,7 +874,7 @@ If we choose $\beta_t$ large enough, then:
 
 \begin{center}
 \color{white}
-\includegraphics<1-3>[draft,width=3.78in]{figures/limno_bgape_pp_0_0}
+\includegraphics<1-3>[draft,height=1.8in]{figures/limno_bgape_pp_0_0}
 \color{black}
 \includegraphics<4>[height=1.8in]{figures/limno_bgape_pp_0_0}
 \includegraphics<5>[height=1.8in]{figures/limno_bgape_pp_0_1}
@@ -890,13 +892,13 @@ If we choose $\beta_t$ large enough, then:
 \includegraphics<17>[height=1.8in]{figures/limno_bgape_pp_120_1}
 \includegraphics<18>[height=1.8in]{figures/limno_bgape_pp_120_2}
 \includegraphics<19>[height=1.8in]{figures/limno_bgape_pp_150_0}
-\includegraphics<20>[height=1.8in]{figures/limno_bgape_pp_150_1}
-\includegraphics<21>[height=1.8in]{figures/limno_bgape_pp_150_2}
-\includegraphics<22>[height=1.8in]{figures/limno_bgape_pp_180_0}
-\includegraphics<23>[height=1.8in]{figures/limno_bgape_pp_180_1}
-\includegraphics<24>[height=1.8in]{figures/limno_bgape_pp_180_2}
-\includegraphics<25>[height=1.8in]{figures/limno_bgape_pp_210_0}
-\includegraphics<26>[height=1.8in]{figures/ev_bgape_pp}
+%\includegraphics<20>[height=1.8in]{figures/limno_bgape_pp_150_1}
+%\includegraphics<21>[height=1.8in]{figures/limno_bgape_pp_150_2}
+%\includegraphics<22>[height=1.8in]{figures/limno_bgape_pp_180_0}
+%\includegraphics<23>[height=1.8in]{figures/limno_bgape_pp_180_1}
+%\includegraphics<24>[height=1.8in]{figures/limno_bgape_pp_180_2}
+%\includegraphics<25>[height=1.8in]{figures/limno_bgape_pp_210_0}
+\includegraphics<20>[height=1.8in]{figures/ev_bgape_pp}
 \end{center}
 \end{frame}
 
