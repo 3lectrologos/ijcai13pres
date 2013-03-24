@@ -29,6 +29,8 @@
            shorten >=2pt,}
 }
 
+\definecolor{col1}{RGB}{140,191,38}
+
 \begin{document}
 \hspace{-8em}
 \begin{tikzpicture}[node distance=1cm, auto,]
@@ -56,7 +58,7 @@
    edge[pil] (amb);
  \node[st,right=1em of t2] (t3) {Noise ($\sigma$)}
    edge[pil] (amb);
- \node[st,right=3em of t3] (t4) {$\beta_t$}
+ \node[st,right=3em of t3,fill=col1] (t4) {$\beta_t$}
    edge[pil] (amb);
    
  \node[draw=black,densely dotted,line width=0.7pt,fit=(t1)(t3)] (fit1) {};
@@ -74,7 +76,7 @@
  \node[st,below=3em of acc] (loss) {$\max_{\*x\in D} \ell_h(\*x) \leq \epsilon$}
    edge[pil] (acc);
  
- \node[st,right=2em of loss] (rules) {Classification rules}
+ \node[st,right=2em of loss] (rules) {Class. rules}
    edge[pil] (loss);
    
  \node[st,below=3em of loss] (est) {Correctly estimate $f$ w.h.p.}
@@ -87,7 +89,7 @@
    edge[pil] (est)
    edge[pil,<-] (t4);
    
- \node[st,right=1.5em of clas] (eps) {$\epsilon$}
+ \node[st,right=1.5em of clas,fill=col1] (eps) {$\epsilon$}
    edge[pil] (amb)
    edge[pil] (loss);
 \end{tikzpicture}

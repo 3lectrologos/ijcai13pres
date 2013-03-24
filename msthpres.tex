@@ -750,8 +750,8 @@ If we choose $\beta_t$ large enough, then:
 \item<3-> ``Straddle'' heuristic (Bryan \emph{et al.}, 2005):
 \vspace{-0.5em}
 \begin{align*}
-\*x_t &= \argmax_{\*x\in D} 1.96\sigma_{t-1}(\*x)-|\mu_{t-1}(\*x) - h|\\
-&\approx \argmax_{\*x\in D} a_{t-1}(\*x) \tag{for $\beta_t = 1.96$}
+%\*x_t &= \argmax_{\*x\in D} 1.96\sigma_{t-1}(\*x)-|\mu_{t-1}(\*x) - h|\\
+\*x_t \approx \argmax_{\*x\in D} a_{t-1}(\*x) \tag{for $\beta_t = 1.96$}
 \end{align*}
 \end{enumerate}
 \end{frame}
@@ -759,8 +759,8 @@ If we choose $\beta_t$ large enough, then:
 \begin{frame}
 \begin{center}
 \hspace{4pt}\includegraphics<1->[width=4in]{figures/limno_chl_ls}\\[0.5em]
-\uncover<2->{\includegraphics[width=2.3in]{figures/ev_chl_seq}}
-\uncover<3>{\includegraphics[width=2.3in]{figures/ev_chl_eps}}
+\uncover<2->{\includegraphics[width=2.3in]{figures/ev_chl_eps}}
+\uncover<3->{\includegraphics[width=2.3in]{figures/ev_chl_seq}}
 \end{center}
 \end{frame}
 
