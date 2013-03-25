@@ -751,7 +751,7 @@ If we choose $\beta_t$ large enough, then:
 \vspace{-0.5em}
 \begin{align*}
 %\*x_t &= \argmax_{\*x\in D} 1.96\sigma_{t-1}(\*x)-|\mu_{t-1}(\*x) - h|\\
-\*x_t \approx \argmax_{\*x\in D} a_{t-1}(\*x) \tag{for $\beta_t = 1.96$}
+\*x_t \approx \argmax_{\*x\in D} a_{t-1}(\*x) \tag{for $\beta_t^{1/2} = 1.96$}
 \end{align*}
 \end{enumerate}
 \end{frame}
@@ -866,7 +866,7 @@ If we choose $\beta_t$ large enough, then:
 \item<2-> What about the traveling distance between measurements?
 \item<3-> Plan ahead:
 \begin{itemize}
-\item Select a \emph{batch} of sampling locations
+\item Select a \emph{batch} of sampling locations (\bacl)
 \item Connect them using a Euclidean TSP path
 \item Traverse path and collect measurements
 \end{itemize}
@@ -920,7 +920,7 @@ If we choose $\beta_t$ large enough, then:
 \item<5-> \begin{tabular}{m{5.7cm} >{\centering}m{4cm}}Implicit threshold level & \includegraphics[width=1.3in]{figures/limno_bgape_imp_class_140} \end{tabular}
 \item<6-> \begin{tabular}{m{5.7cm} >{\centering}m{4cm}}Batch sampling $\rightarrow$ path planning & \includegraphics[width=1.3in]{figures/limno_bgape_pp_30_2} \end{tabular}
 \end{itemize}
-\item<7-> Look out for algae when swimming in Lake Zurich! =)
+\item<7-> Look out for algae when swimming in Lake Zurich! {\color{blue}$\ddot\smile$}
 \end{itemize}
 \end{frame}
 
@@ -928,7 +928,7 @@ If we choose $\beta_t$ large enough, then:
 \begin{center}
 \large Questions?\\
 \vspace{2em}
-\sig{\includegraphics[width=3in]{figures/dilbert}}{www.dilbert.com}
+\sig{\includegraphics[width=3.5in]{figures/dilbert}}{www.dilbert.com}
 \end{center}
 \end{frame}
 
