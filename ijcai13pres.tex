@@ -16,6 +16,8 @@
 \setbeamertemplate{enumerate subsubitem}{\insertenumlabel.\insertsubenumlabel.\insertsubsubenumlabel}
 \setbeamertemplate{enumerate mini template}{\insertenumlabel}
 
+\definecolor{locol}{rgb}{0.26, 0.45, 0.65}
+
 \usepackage{fontspec}
 \setmainfont[Mapping=tex-text]{Linux Libertine}
 %\setsansfont{Myriad Pro}
@@ -152,19 +154,14 @@ Swimmers of Lake Zurich, beware!\\
 \minipage[c][0.80\textheight][s]{\columnwidth}
 \uncover<1->{
 \small
-``The warming waters of one of central Europe's most popular holiday
-destinations, Switzerland's Lake Zurich, have created an ideal environment
-for a population explosion of algae including \emph{Planktothrix rubescens},
+``[\ldots]Switzerland's Lake Zurich [\ldots] an ideal environment
+for a population explosion of algae including \emph{Planktothrix rubescens}
 [\ldots]''
 \qauth{Scientific American}
 }
 \vfill
 \uncover<3->{
 \small
-``\emph{Planktotrhix rubescens} can account for half of the total
-phytoplankton biomass in Lake Zurich in summer [\ldots]''
-\vspace{1em}
-
 ``\emph{Planktotrhix rubescens} are among the most important
 producers of hepatotoxic microcystins in freshwaters [\ldots]''
 \qauth{Silke Van den Wyngaert \emph{et al.}, ASLO, 2011}
@@ -185,13 +182,15 @@ Their hepatotoxicity may cause serious damage to the liver.''
 \begin{frame}
 \begin{center}
 \vspace{0.2in}
+%\only<1>{
+%\sig{\includegraphics[width=2in]{figures/manual.jpg}}{www.limnobotics.ch}
+%}
 \only<1>{
-\sig{\includegraphics[width=2in]{figures/manual.jpg}}{www.limnobotics.ch}
-}
-\only<2>{
+Autonomous surface vehicle developed by the Autonomous Systems Lab of ETH\\[1em]
 \sig{\includegraphics[width=4in]{figures/boat.jpg}}{www.limnobotics.ch}
 }
-\only<3>{
+\only<2>{
+Take measurements on a vertical transect of the lake\\[1em]
 \sig{\includegraphics[width=4in]{figures/lake.png}}{www.limnobotics.ch}
 }
 \end{center}
@@ -200,22 +199,34 @@ Their hepatotoxicity may cause serious damage to the liver.''
 \begin{frame}
 \begin{center}
 \vspace{0.2in}
-\includegraphics<1>[width=4.7in]{figures/limno_bgape_sc}
-\includegraphics<2>[width=4.7in]{figures/limno_bgape}
+\only<1>{
+Original algae concentration measurements ($\sim 2000$)\\[1em]
+\includegraphics[width=4.7in]{figures/limno_bgape_sc}
+}
+\only<2>{
+Interpolated algae concentration field\\[1em]
+\includegraphics[width=4.7in]{figures/limno_bgape}
+}
+\only<3>{
+Focus on accurately estimating regions of ``high'' concentration (e.g. $\geq 7$)\\[1em]
 \includegraphics<3>[width=4.7in]{figures/limno_bgape_ls}
-\only<4>{\hspace{-2em}\includegraphics[width=4.45in]{figures/limno_bgape_cl}}
+}
+\only<4>{
+Classify transect into a {\color{red!40!yellow}super-} and a {\color{locol}sub}level set\\[1em]
+\hspace{-2em}\includegraphics[width=4.45in]{figures/limno_bgape_cl}
+}
 \end{center}
 \end{frame}
 
 \begin{frame}
 Pose as a sequential decision making problem (\emph{pool-based active learning}):
 \begin{itemize}
-\item<1-> No measurements available in advance, just a set (pool) of possible\\sampling locations ($D$)
+\item<2-> No measurements available in advance, just a set (pool) of possible\\sampling locations ($D$)
 \vspace{0.5em}
-\item<2->[]\hspace{-1.5em} At each iteration $t \geq 1$:
-\item<2-> Decide where to measure next ($\*x_t \in D$)
-\item<3-> Obtain noisy observation ($y_t = f(\*x_t) + n_t$)
-\item<4-> Update our estimate of $f$
+\item<3->[]\hspace{-1.5em} At each iteration $t \geq 1$:
+\item<3-> Decide where to measure next ($\*x_t \in D$)
+\item<4-> Obtain noisy observation ($y_t = f(\*x_t) + n_t$)
+\item<5-> Update our estimated classification
 \end{itemize}
 %\begin{center}
 %\color{white}
@@ -233,7 +244,7 @@ Pose as a sequential decision making problem (\emph{pool-based active learning})
 
 \begin{frame}
 \begin{enumerate}
-\item<1-> How do we \textbf{estimate} the function?
+\item<1-> How do we \textbf{estimate} the underlying function from measurements?
 \vspace{1em}
 \item<2-> How do we \textbf{classify}?
 \vspace{1em}
@@ -806,6 +817,9 @@ If we choose $\beta_t$ large enough, then:
 \section{Two extensions}
 
 \begin{frame}
+\begin{center}
+\large Implicit threshold level
+\end{center}
 \begin{itemize}
 \item<1-> What if we don't know the threshold level $h$?
 \vspace{1em}
@@ -815,7 +829,7 @@ If we choose $\beta_t$ large enough, then:
 \vspace{1em}
 \item<4-> We extend \acl (and its theory!) to this setting
 \vspace{1em}
-\item<5->\iacl algorithm:
+\item<5->\textbf{\iacl} algorithm:
 \begin{itemize}
 \item<6-> Need to accurately estimate the maximum $\rightarrow$ modified selection rule
 \item<7-> $h$ is now an estimated quantity $\rightarrow$ modified classification rules
@@ -886,13 +900,18 @@ If we choose $\beta_t$ large enough, then:
 %\end{frame}
 
 \begin{frame}
+\begin{center}
+\large Batch sampling
+\end{center}
 \begin{itemize}
-\item<1-> Up to this point we have assumed a fixed cost per sample
-\item<2-> What about the traveling distance between measurements?
-\item<3-> We extend \acl to select a \emph{batch} of sampling locations at each step (\bacl)
-\item<3-> Use this to plan ahead:
+\item<1-> Up to this point we have assumed a fixed cost per sample.\\
+          What about the traveling distance between measurements?
+\vspace{1em}
+\item<2-> We extend \acl to select a \emph{batch} of sampling locations at each step
+\vspace{1em}
+\item<3-> Plan ahead:
 \begin{itemize}
-\item Select a batch of sampling locations
+\item Use \textbf{\bacl} to select a batch of sampling locations
 \item Connect them using a Euclidean TSP path
 \item Traverse path and collect measurements
 \end{itemize}
@@ -912,21 +931,23 @@ If we choose $\beta_t$ large enough, then:
 \includegraphics<11>[height=1.8in]{figures/limno_bgape_pp_60_1}
 \includegraphics<12>[height=1.8in]{figures/limno_bgape_pp_60_2}
 \includegraphics<13>[height=1.8in]{figures/limno_bgape_pp_90_0}
-\includegraphics<14>[height=1.8in]{figures/limno_bgape_pp_90_1}
-\includegraphics<15>[height=1.8in]{figures/limno_bgape_pp_90_2}
-\includegraphics<16>[height=1.8in]{figures/limno_bgape_pp_120_0}
-\includegraphics<17>[height=1.8in]{figures/limno_bgape_pp_120_1}
-\includegraphics<18>[height=1.8in]{figures/limno_bgape_pp_120_2}
-\includegraphics<19>[height=1.8in]{figures/limno_bgape_pp_150_0}
+%\includegraphics<14>[height=1.8in]{figures/limno_bgape_pp_90_1}
+%\includegraphics<15>[height=1.8in]{figures/limno_bgape_pp_90_2}
+%\includegraphics<16>[height=1.8in]{figures/limno_bgape_pp_120_0}
+%\includegraphics<17>[height=1.8in]{figures/limno_bgape_pp_120_1}
+%\includegraphics<18>[height=1.8in]{figures/limno_bgape_pp_120_2}
+%\includegraphics<19>[height=1.8in]{figures/limno_bgape_pp_150_0}
 %\includegraphics<20>[height=1.8in]{figures/limno_bgape_pp_150_1}
 %\includegraphics<21>[height=1.8in]{figures/limno_bgape_pp_150_2}
 %\includegraphics<22>[height=1.8in]{figures/limno_bgape_pp_180_0}
 %\includegraphics<23>[height=1.8in]{figures/limno_bgape_pp_180_1}
 %\includegraphics<24>[height=1.8in]{figures/limno_bgape_pp_180_2}
 %\includegraphics<25>[height=1.8in]{figures/limno_bgape_pp_210_0}
-\includegraphics<20>[height=1.8in]{figures/ev_bgape_pp}
+\includegraphics<14>[height=1.8in]{figures/ev_bgape_pp}
 \end{center}
 \end{frame}
+
+\section{Conclusion}
 
 \begin{frame}
 \begin{center}
@@ -952,25 +973,23 @@ If we choose $\beta_t$ large enough, then:
 %\includegraphics<4>[height=2.5in]{figures/map_ls_150}
 %\end{center}
 
-\section*{Conclusion}
-
 \begin{frame}
 \begin{center}
 \large Summary
 \end{center}
-\vspace{-1em}
+\vspace{-1.5em}
 \begin{itemize}
-\item<1-> \acl algorithm:
-\begin{itemize}
-\item<2-> \begin{tabular}{m{5.7cm} >{\centering}m{4cm}}Theoretical guarantees & \includegraphics[width=1.3in]{figures/thm.png} \end{tabular}
-\item<3-> \begin{tabular}{m{5.7cm} >{\centering}m{4cm}}Competitive with the state of the art in practice (sometimes considerably superior) & \hspace{-0.5em}\includegraphics[width=1.3in]{figures/ev_bgape_seq_long} \end{tabular}
-\end{itemize}
-\item<4-> Two useful extensions:
-\begin{itemize}
-\item<5-> \begin{tabular}{m{5.7cm} >{\centering}m{4cm}}Implicit threshold level & \includegraphics[width=1.3in]{figures/limno_bgape_imp_class_140} \end{tabular}
-\item<6-> \begin{tabular}{m{5.7cm} >{\centering}m{4cm}}Batch sampling & \includegraphics[width=1.3in]{figures/limno_bgape_pp_30_2} \end{tabular}
-\end{itemize}
-\item<7-> Look out for algae when swimming in Lake Zurich! {\color{blue}$\ddot\smile$}
+\item<2-> \acl algorithm:\vspace{0.5em}
+\begin{tabular}{>{\centering\arraybackslash} m{5cm}>{\centering\arraybackslash} m{5.5cm}}
+Theoretical guarantees & Competitive with the state of the art\\
+\includegraphics[height=0.9in]{figures/thm.png} & \includegraphics[height=1in]{figures/ev_chl_seq_long}
+\end{tabular}
+\item<3-> Two useful extensions:\vspace{0.5em}
+\begin{tabular}{>{\centering\arraybackslash} m{5.25cm}>{\centering\arraybackslash} m{5.25cm}}
+Implicit threshold level (\iacl) & Batch sampling (\bacl)\\
+\includegraphics[height=0.95in]{figures/limno_bgape_imp_class_140} & \includegraphics[height=0.95in]{figures/limno_bgape_pp_30_2}
+\end{tabular}
+\item<4-> Look out for algae when swimming in Lake Zurich! {\color{blue}$\ddot\smile$}
 \end{itemize}
 \end{frame}
 
