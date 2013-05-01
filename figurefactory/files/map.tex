@@ -134,7 +134,9 @@ colorbar style={
 tickwidth=0.1cm,
 colorbar/width=0.15cm,
 point meta min=0,
-point meta max=500]
+point meta max=500,
+clip =false
+]
 \addplot [
 color=black,
 solid,
@@ -19759,5 +19761,19 @@ forget plot
 coordinates{
  (112.453598,34.683601) 
 };
+
+% zurich
+\addplot [
+only marks,
+mark=x,mark size=4pt,
+mark options={solid,fill=blue!80!black,draw=blue!80!black,line width=2pt},
+forget plot
+]
+coordinates{
+ (8.5380,47.3690) 
+};
+\node at (axis cs:-8, 75) [anchor=west,minimum size=20pt] {\color{blue!80!black}\small we are here};
+\draw[->,line width=1.5pt,color=blue!80!black] (axis cs:2, 70) to[in=120,out=-90] (axis cs:7, 51);
+
 \end{axis}
 \end{tikzpicture}%
