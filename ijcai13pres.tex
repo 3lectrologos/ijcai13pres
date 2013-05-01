@@ -25,6 +25,12 @@
 %\usepackage{libertine}
 %\usepackage[T1]{fontenc}
 
+\usepackage{grfext}\PrependGraphicsExtensions*{.png,.PNG}
+
+%\usepackage{graphicx}
+%\usepackage{epstopdf}
+%\epstopdfDeclareGraphicsRule{.pdf}{png}{.png}{convert -density 200 #1 \OutputFile}
+
 %%
 \usepackage{xspace}
 \usepackage{makecell}
@@ -116,10 +122,10 @@ IJCAI '13
   \titlepage
 \end{frame}
 
-\begin{frame}{Outline}
-  \tableofcontents
-  % You might wish to add the option [pausesections]
-\end{frame}
+%\begin{frame}{Outline}
+%  \tableofcontents
+%  % You might wish to add the option [pausesections]
+%\end{frame}
 
 
 \section{Motivation and background}
@@ -202,29 +208,27 @@ Their hepatotoxicity may cause serious damage to the liver.''
 \end{frame}
 
 \begin{frame}
+Pose as a sequential decision making problem (\emph{pool-based active learning}):
 \begin{itemize}
-\item<1-> Pose as a sequential decision making problem (\emph{pool-based active learning}):
-\begin{itemize}
-\item<2-> No measurements available in advance, just a set (pool) of possible sampling locations ($D$)
+\item<1-> No measurements available in advance, just a set (pool) of possible\\sampling locations ($D$)
 \vspace{0.5em}
-\item<3->[]\hspace{-1.5em} At each iteration $t \geq 1$:
-\item<3-> Decide where to measure next ($x_t$)
-\item<4-> Obtain noisy observation ($y_t = f(x_t) + n_t$)
-\item<5-> Update our estimate of the underlying function
+\item<2->[]\hspace{-1.5em} At each iteration $t \geq 1$:
+\item<2-> Decide where to measure next ($\*x_t \in D$)
+\item<3-> Obtain noisy observation ($y_t = f(\*x_t) + n_t$)
+\item<4-> Update our estimate of $f$
 \end{itemize}
-\end{itemize}
-\begin{center}
-\color{white}
-\includegraphics<1>[draft,width=4.45in]{figures/oned_0}
-\color{black}
-\includegraphics<2>[width=4.45in]{figures/oned_0}
-\includegraphics<3>[width=4.45in]{figures/oned_1_0}
-\includegraphics<4>[width=4.45in]{figures/oned_1_1}
-\includegraphics<5>[width=4.45in]{figures/oned_1_2}
-\includegraphics<6>[width=4.45in]{figures/oned_2_0}
-\includegraphics<7>[width=4.45in]{figures/oned_2_1}
-\includegraphics<8>[width=4.45in]{figures/oned_2_2}
-\end{center}
+%\begin{center}
+%\color{white}
+%\includegraphics<1>[draft,width=4.45in]{figures/oned_0}
+%\color{black}
+%\includegraphics<2>[width=4.45in]{figures/oned_0}
+%\includegraphics<3>[width=4.45in]{figures/oned_1_0}
+%\includegraphics<4>[width=4.45in]{figures/oned_1_1}
+%\includegraphics<5>[width=4.45in]{figures/oned_1_2}
+%\includegraphics<6>[width=4.45in]{figures/oned_2_0}
+%\includegraphics<7>[width=4.45in]{figures/oned_2_1}
+%\includegraphics<8>[width=4.45in]{figures/oned_2_2}
+%\end{center}
 \end{frame}
 
 \begin{frame}
@@ -244,39 +248,53 @@ Gaussian processes to the rescue!
 \end{center}
 \end{frame}
 
-\begin{frame}
-\begin{center}
-\uncover<1->{\large Why GPs are nice}
-\end{center}
-\begin{itemize}
-\item<2-> \textbf{Nonparametric}:\\
-      Impose ``smoothness'' assumptions via kernel $k(x, x')$.
-\vspace{1em}
-\item<3-> \textbf{Bayesian}, yet \textbf{efficient}:
-      \begin{align*}
-        \mu_t(\*x) &= \*k_t(\*x)^T\left(\*K_t + \sigma^2 \*I\right)^{-1}\*y_t\\
-        k_t(\*x, \*x') &= k(\*x, \*x') - \*k_t(\*x)^T\left(\*K_t + \sigma^2 \*I\right)^{-1}\*k_t(\*x)\notag\\
-        \sigma_t^2(\*x) &= k_t(\*x, \*x)
-      \end{align*}
-      Suitable for step-by-step updates.
-\vspace{1em}
-\item<4-> They provide \textbf{variance estimates}!\\
-          Construct confidence intervals: $Q_t(\*x) = \left[\mu_{t-1}(\*x) \pm \beta_t^{1/2} \sigma_{t-1}(\*x)\right]$
-\end{itemize}
-\end{frame}
+%\begin{frame}
+%\begin{center}
+%\uncover<1->{\large Why GPs are nice}
+%\end{center}
+%\begin{itemize}
+%\item<2-> \textbf{Nonparametric}:\\
+%      Impose ``smoothness'' assumptions via kernel $k(x, x')$.
+%\vspace{1em}
+%\item<3-> \textbf{Bayesian}, yet \textbf{efficient}:
+%      \begin{align*}
+%        \mu_t(\*x) &= \*k_t(\*x)^T\left(\*K_t + \sigma^2 \*I\right)^{-1}\*y_t\\
+%        k_t(\*x, \*x') &= k(\*x, \*x') - \*k_t(\*x)^T\left(\*K_t + \sigma^2 \*I\right)^{-1}\*k_t(\*x)\notag\\
+%        \sigma_t^2(\*x) &= k_t(\*x, \*x)
+%      \end{align*}
+%      Suitable for step-by-step updates.
+%\vspace{1em}
+%\item<4-> They provide \textbf{variance estimates}!\\
+%          Construct confidence intervals: $Q_t(\*x) = \left[\mu_{t-1}(\*x) \pm \beta_t^{1/2} \sigma_{t-1}(\*x)\right]$
+%\end{itemize}
+%\end{frame}
 
 \begin{frame}
 \begin{center}
-\includegraphics<1>[width=4.45in]{figures/voned_0}
-\includegraphics<2>[width=4.45in]{figures/voned_1_0}
-\includegraphics<3>[width=4.45in]{figures/voned_1_1}
-\includegraphics<4>[width=4.45in]{figures/voned_1_2}
-\includegraphics<5>[width=4.45in]{figures/voned_2_0}
-\includegraphics<6>[width=4.45in]{figures/voned_2_1}
-\includegraphics<7>[width=4.45in]{figures/voned_2_2}
-\includegraphics<8>[width=4.45in]{figures/voned_3_0}
-\includegraphics<9>[width=4.45in]{figures/voned_3_1}
-\includegraphics<10>[width=4.45in]{figures/voned_3_2}
+\large Gaussian processes
+\end{center}
+\begin{itemize}
+\item<1-> \textbf{Nonpaparametric}: impose ``smoothness'' assumptions via kernel $k(\*x, \*x')$
+\item<2-> Mean \textbf{and variance} estimates: construct confidence intervals $Q_t(\*x)$
+\item<7-> \textbf{Bayesian}, yet \textbf{efficient}: suitable for step-by-step updates
+\end{itemize}
+\begin{center}
+\color{white}
+\includegraphics<1-2>[draft,width=4in]{figures/voned_0_0}
+\color{black}
+\includegraphics<3>[width=4in]{figures/voned_0_0}
+\includegraphics<4>[width=4in]{figures/voned_0_1}
+\includegraphics<5>[width=4in]{figures/voned_0_2}
+\includegraphics<6-7>[width=4in]{figures/voned_0_3}
+\includegraphics<8>[width=4in]{figures/voned_1_0}
+\includegraphics<9>[width=4in]{figures/voned_1_1}
+\includegraphics<10>[width=4in]{figures/voned_1_2}
+\includegraphics<11>[width=4in]{figures/voned_2_0}
+\includegraphics<12>[width=4in]{figures/voned_2_1}
+\includegraphics<13>[width=4in]{figures/voned_2_2}
+\includegraphics<14>[width=4in]{figures/voned_3_0}
+\includegraphics<15>[width=4in]{figures/voned_3_1}
+\includegraphics<16>[width=4in]{figures/voned_3_2}
 \end{center}
 \end{frame}
 
@@ -286,32 +304,32 @@ Gaussian processes to the rescue!
 \vspace{0em}
 \item<4-> How do we \textbf{classify}? \uncover<14->{\Large\color{green!70!black}\checkmark}
 \vspace{0.3em}
-\item<15-> How do we \textbf{select} ``informative'' measurements? \uncover<24->{\Large\color{green!70!black}\checkmark}
+\item<15-> How do we \textbf{select} ``informative'' measurements? \uncover<22->{\Large\color{green!70!black}\checkmark}
 \uncover<16->{
 \begin{itemize}
-\item<16-> Pick among the yet unclassified.
-\item<17-> Doesn't really matter which!\\
-           \uncover<18->{(e.g. max. variance, }\uncover<19->{max. ambiguity}\uncover<23->{, or even random)}
+\item<16-> Pick among the yet unclassified\ldots
+\item<17-> \ldots the most ``ambiguous'' point
+           \uncover<21->{(max. variance or random also work)}
 \end{itemize}}
 \end{enumerate}
 
 \begin{center}
 \color{white}
-\includegraphics<1>[draft,width=3.5in]{figures/voned_cl_00}
+\includegraphics<1>[draft,width=3.7in]{figures/voned_cl_00}
 \color{black}
-\includegraphics<2-4>[width=3.5in]{figures/voned_cl_00}
-\includegraphics<5>[width=3.5in]{figures/voned_cl_01}
-\includegraphics<6>[width=3.5in]{figures/voned_cl_10}
-\includegraphics<7>[width=3.5in]{figures/voned_cl_11}
-\includegraphics<8>[width=3.5in]{figures/voned_cl_20}
-\includegraphics<9>[width=3.5in]{figures/voned_cl_21}
-\includegraphics<10>[width=3.5in]{figures/voned_cl_30}
-\includegraphics<11>[width=3.5in]{figures/voned_cl_31}
-\includegraphics<12>[width=3.5in]{figures/voned_cl_40}
-\includegraphics<13-19>[width=3.5in]{figures/voned_cl_41}
-\includegraphics<20>[width=3.5in]{figures/voned_cl_41_amb_0}
-\includegraphics<21>[width=3.5in]{figures/voned_cl_41_amb_1}
-\includegraphics<22->[width=3.5in]{figures/voned_cl_41_amb_2}
+\includegraphics<2-4>[width=3.7in]{figures/voned_cl_00}
+\includegraphics<5>[width=3.7in]{figures/voned_cl_01}
+\includegraphics<6>[width=3.7in]{figures/voned_cl_10}
+\includegraphics<7>[width=3.7in]{figures/voned_cl_11}
+\includegraphics<8>[width=3.7in]{figures/voned_cl_20}
+\includegraphics<9>[width=3.7in]{figures/voned_cl_21}
+\includegraphics<10>[width=3.7in]{figures/voned_cl_30}
+\includegraphics<11>[width=3.7in]{figures/voned_cl_31}
+\includegraphics<12>[width=3.7in]{figures/voned_cl_40}
+\includegraphics<13-17>[width=3.7in]{figures/voned_cl_41}
+\includegraphics<18>[width=3.7in]{figures/voned_cl_41_amb_0}
+\includegraphics<19>[width=3.7in]{figures/voned_cl_41_amb_1}
+\includegraphics<20->[width=3.7in]{figures/voned_cl_41_amb_2}
 \end{center}
 \end{frame}
 
@@ -406,7 +424,7 @@ The Level Set Estimation (\acl) algorithm
 \end{itemize}
 }
 \begin{center}
-\includegraphics<8->[width=2in]{figures/voned_cl_41_eps}
+\includegraphics<8->[width=2.5in]{figures/voned_cl_41_eps}
 \end{center}
 \end{columns}
 \end{frame}
@@ -750,7 +768,7 @@ If we choose $\beta_t$ large enough, then:
 \begin{align*}
 \*x_t = \argmax_{\*x\in D} \sigma_{t-1}(\*x)
 \end{align*}
-\item<3-> ``Straddle'' heuristic (Bryan \emph{et al.}, 2005):
+\item<3-> State of the art ``straddle'' heuristic (Bryan \emph{et al.}, 2005):
 \vspace{-0.5em}
 \begin{align*}
 %\*x_t &= \argmax_{\*x\in D} 1.96\sigma_{t-1}(\*x)-|\mu_{t-1}(\*x) - h|\\
@@ -762,8 +780,8 @@ If we choose $\beta_t$ large enough, then:
 \begin{frame}
 \begin{center}
 \hspace{4pt}\includegraphics<1->[width=4in]{figures/limno_chl_ls}\\[0.5em]
-\uncover<2->{\includegraphics[width=2.3in]{figures/ev_chl_eps}}
-\uncover<3->{\includegraphics[width=2.3in]{figures/ev_chl_seq}}
+\uncover<2->{\includegraphics[width=2.4in]{figures/ev_chl_eps}}
+\uncover<3->{\includegraphics[width=2.25in]{figures/ev_chl_seq}}
 \end{center}
 \end{frame}
 
@@ -773,15 +791,15 @@ If we choose $\beta_t$ large enough, then:
 \color{white}
 \only<1>{\includegraphics[draft,width=2.3in]{figures/ev_bgape_seq}}
 \color{black}
-\only<2-4>{\includegraphics[width=2.3in]{figures/ev_bgape_seq}}
-\color{white}
-\only<2>{\includegraphics[draft,width=2.3in]{figures/ev_bgape_eps}}
-\color{black}
-\only<3>{\includegraphics[width=2.3in]{figures/ev_bgape_eps}}
-\only<4>{\includegraphics[width=2.3in]{figures/ev_bgape_seq_str_sc}}
-\only<5>{\hspace{-16pt}\includegraphics[width=3.77in]{figures/limno_bgape_class_354}}
-\only<6>{\hspace{-16pt}\includegraphics[width=3.77in]{figures/limno_bgape_str_class_400}}
-\only<7>{\hspace{-16pt}\includegraphics[width=3.77in]{figures/limno_bgape_var_class_400}}
+\only<2>{\includegraphics[width=2.3in]{figures/ev_bgape_seq}}
+%\color{white}
+%\only<2>{\includegraphics[draft,width=2.3in]{figures/ev_bgape_eps}}
+%\color{black}
+%\only<3>{\includegraphics[width=2.3in]{figures/ev_bgape_eps}}
+%\only<4>{\includegraphics[width=2.3in]{figures/ev_bgape_seq_str_sc}}
+%\only<5>{\hspace{-16pt}\includegraphics[width=3.77in]{figures/limno_bgape_class_354}}
+%\only<6>{\hspace{-16pt}\includegraphics[width=3.77in]{figures/limno_bgape_str_class_400}}
+%\only<7>{\hspace{-16pt}\includegraphics[width=3.77in]{figures/limno_bgape_var_class_400}}
 \end{center}
 \end{frame}
 
@@ -789,14 +807,18 @@ If we choose $\beta_t$ large enough, then:
 
 \begin{frame}
 \begin{itemize}
-\item<1-> What if we don't know $h$?
+\item<1-> What if we don't know the threshold level $h$?
 \vspace{1em}
-\item<2-> Implicitly define the threshold level: $h = \omega \max_{\*x\in D} f(\*x),\ 0 < \omega < 1$
+\item<2-> Implicitly define $h = \omega \max_{\*x\in D} f(\*x),\ 0 < \omega < 1$
 \vspace{1em}
-\item<3-> \iacl:
+\item<3-> No existing algorithms for this problem (to our knowledge)
+\vspace{1em}
+\item<4-> We extend \acl (and its theory!) to this setting
+\vspace{1em}
+\item<5->\iacl algorithm:
 \begin{itemize}
-\item<4-> Need to also estimate the maximum
-\item<5-> Slower classification due to uncertainty about $h$
+\item<6-> Need to accurately estimate the maximum $\rightarrow$ modified selection rule
+\item<7-> $h$ is now an estimated quantity $\rightarrow$ modified classification rules
 \end{itemize}
 \end{itemize}
 \begin{center}
@@ -867,9 +889,10 @@ If we choose $\beta_t$ large enough, then:
 \begin{itemize}
 \item<1-> Up to this point we have assumed a fixed cost per sample
 \item<2-> What about the traveling distance between measurements?
-\item<3-> Plan ahead:
+\item<3-> We extend \acl to select a \emph{batch} of sampling locations at each step (\bacl)
+\item<3-> Use this to plan ahead:
 \begin{itemize}
-\item Select a \emph{batch} of sampling locations (\bacl)
+\item Select a batch of sampling locations
 \item Connect them using a Euclidean TSP path
 \item Traverse path and collect measurements
 \end{itemize}
@@ -907,21 +930,27 @@ If we choose $\beta_t$ large enough, then:
 
 \begin{frame}
 \begin{center}
-\large Geolocating internet latency
+\large Come to the poster session for more\ldots
 \end{center}
 \begin{itemize}
-\item<1-> Which world regions have low enough latency (e.g. < $150$ ms)
-      for video chatting, online gaming, etc.?
-\item<2-> Ideal setting for batch sampling $\rightarrow$ multiple pings in parallel
+\item<2-> \ldots theory: sample complexity bounds in more detail
+\item<3-> \ldots applications: estimate world regions of low internet latency\\[0.5em]
+\hspace{3em}\includegraphics[height=2in]{figures/map}
+\item<4-> \ldots results: why does \acl greatly outperform ``straddle'' in some cases?
 \end{itemize}
-\begin{center}
-\color{white}
-\includegraphics<1-2>[draft,height=2.5in]{figures/map}
-\color{black}
-\includegraphics<3>[height=2.5in]{figures/map}
-\includegraphics<4>[height=2.5in]{figures/map_ls_150}
-\end{center}
 \end{frame}
+%\begin{itemize}
+%\item<1-> Which world regions have low enough latency (e.g. < $150$ ms)
+%      for video chatting, online gaming, etc.?
+%\item<2-> Ideal setting for batch sampling $\rightarrow$ multiple pings in parallel
+%\end{itemize}
+%\begin{center}
+%\color{white}
+%\includegraphics<1-2>[draft,height=2.5in]{figures/map}
+%\color{black}
+%\includegraphics<3>[height=2.5in]{figures/map}
+%\includegraphics<4>[height=2.5in]{figures/map_ls_150}
+%\end{center}
 
 \section*{Conclusion}
 
@@ -945,12 +974,12 @@ If we choose $\beta_t$ large enough, then:
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\begin{center}
-\large Questions?\\
-\vspace{2em}
-\sig{\includegraphics[width=3.5in]{figures/dilbert}}{www.dilbert.com}
-\end{center}
-\end{frame}
+%\begin{frame}
+%\begin{center}
+%\large Questions?\\
+%\vspace{2em}
+%\sig{\includegraphics[width=3.5in]{figures/dilbert}}{www.dilbert.com}
+%\end{center}
+%\end{frame}
 
 \end{document}
