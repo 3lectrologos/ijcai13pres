@@ -9,11 +9,12 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-tick label style={font=\footnotesize},
-label style={font=\footnotesize},
+tick label style={font=\Large},
+label style={font=\Large},
 label shift={-4pt},
 xlabel shift={-6pt},
-legend style={font=\footnotesize},
+legend style={font=\Large},
+xticklabel shift={2pt},
 view={0}{90},
 width=\figurewidth,
 height=\figureheight,
@@ -41,7 +42,7 @@ color=darkgray,
 solid,
 only marks,
 mark=*,
-mark size=2.5pt,
+mark size=3.5pt,
 forget plot
 ]
 coordinates{
@@ -53,7 +54,7 @@ color=red!40!yellow,
 solid,
 only marks,
 mark=*,
-mark size=2.5pt,
+mark size=3.5pt,
 forget plot
 ]
 coordinates{
@@ -65,7 +66,7 @@ color=locol,
 solid,
 only marks,
 mark=*,
-mark size=2.5pt,
+mark size=3.5pt,
 forget plot
 ]
 coordinates{
@@ -74,8 +75,8 @@ coordinates{
 
 \addplot [
 color=red,
-densely dashed,
-line width=2.0pt,
+dashed,
+line width=2.5pt,
 forget plot
 ]
 coordinates{
@@ -85,7 +86,7 @@ coordinates{
 \addplot [
 color=black,
 solid,
-line width=1.5pt,
+line width=2pt,
 mark size=3pt,
 mark=-,
 forget plot
@@ -94,7 +95,7 @@ coordinates{
  (1,0.2645)(1,0.7996)
 };
 
-\node at (axis cs:0.88, -0.4) [anchor=south west,minimum size=16pt] {$Q_4(\*x_1)$};
+\node at (axis cs:0.88, -0.4) [anchor=south west,minimum size=16pt] {\Large$C(1)$};
 
 \end{axis}
 \end{tikzpicture}%

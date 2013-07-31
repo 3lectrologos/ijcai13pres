@@ -226,7 +226,7 @@ Pose as a sequential decision making problem (\emph{pool-based active learning})
 \item<3->[]\hspace{-1.5em} At each iteration $t \geq 1$:
 \item<3-> Decide where to measure next ($\*x_t \in D$)
 \item<4-> Obtain noisy observation ($y_t = f(\*x_t) + n_t$)
-\item<5-> Update our estimated classification
+\item<5-> Update our classification estimate
 \end{itemize}
 %\begin{center}
 %\color{white}
@@ -285,27 +285,27 @@ Gaussian processes to the rescue!
 \large Gaussian processes
 \end{center}
 \begin{itemize}
-\item<1-> \textbf{Nonparametric}: impose ``smoothness'' assumptions via kernel $k(\*x, \*x')$
-\item<2-> Mean \textbf{and variance} estimates: construct confidence intervals $Q_t(\*x)$
-\item<7-> \textbf{Bayesian}, yet \textbf{efficient}: suitable for step-by-step updates
+\item<1-> Mean \textbf{and variance} estimates: construct confidence intervals $C(\*x)$
+\item<2-> \textbf{Bayesian}, yet \textbf{efficient}: suitable for step-by-step updates
+\item<3-> Impose prior ``smoothness'' assumptions via kernel $k(\*x, \*x')$
 \end{itemize}
 \begin{center}
-\color{white}
-\includegraphics<1-2>[draft,width=4in]{figures/voned_0_0}
-\color{black}
-\includegraphics<3>[width=4in]{figures/voned_0_0}
-\includegraphics<4>[width=4in]{figures/voned_0_1}
-\includegraphics<5>[width=4in]{figures/voned_0_2}
-\includegraphics<6-7>[width=4in]{figures/voned_0_3}
-\includegraphics<8>[width=4in]{figures/voned_1_0}
-\includegraphics<9>[width=4in]{figures/voned_1_1}
-\includegraphics<10>[width=4in]{figures/voned_1_2}
-\includegraphics<11>[width=4in]{figures/voned_2_0}
-\includegraphics<12>[width=4in]{figures/voned_2_1}
-\includegraphics<13>[width=4in]{figures/voned_2_2}
-\includegraphics<14>[width=4in]{figures/voned_3_0}
-\includegraphics<15>[width=4in]{figures/voned_3_1}
-\includegraphics<16>[width=4in]{figures/voned_3_2}
+%\color{white}
+%\includegraphics<1>[draft,width=4in]{figures/voned_0_0}
+%\color{black}
+%\includegraphics<1>[width=4in]{figures/voned_0_0}
+%\includegraphics<4>[width=4in]{figures/voned_0_1}
+%\includegraphics<5>[width=4in]{figures/voned_0_2}
+\includegraphics<1-3>[width=4in]{figures/voned_0_3}
+%\includegraphics<4>[width=4in]{figures/voned_1_0}
+\includegraphics<4>[width=4in]{figures/voned_1_1}
+\includegraphics<5>[width=4in]{figures/voned_1_2}
+%\includegraphics<7>[width=4in]{figures/voned_2_0}
+\includegraphics<6>[width=4in]{figures/voned_2_1}
+\includegraphics<7>[width=4in]{figures/voned_2_2}
+%\includegraphics<10>[width=4in]{figures/voned_3_0}
+\includegraphics<8>[width=4in]{figures/voned_3_1}
+\includegraphics<9>[width=4in]{figures/voned_3_2}
 \end{center}
 \end{frame}
 
@@ -315,12 +315,12 @@ Gaussian processes to the rescue!
 \vspace{0em}
 \item<4-> How do we \textbf{classify}? \uncover<14->{\Large\color{green!70!black}\checkmark}
 \vspace{0.3em}
-\item<15-> How do we \textbf{select} ``informative'' measurements? \uncover<22->{\Large\color{green!70!black}\checkmark}
+\item<15-> How do we \textbf{select} ``informative'' measurements? \uncover<19>{\Large\color{green!70!black}\checkmark}
 \uncover<16->{
 \begin{itemize}
 \item<16-> Pick among the yet unclassified\ldots
 \item<17-> \ldots the most ``ambiguous'' point
-           \uncover<21->{(max. variance or random also work)}
+           %\uncover<21->{(max. variance or random also work)}
 \end{itemize}}
 \end{enumerate}
 
@@ -338,9 +338,7 @@ Gaussian processes to the rescue!
 \includegraphics<11>[width=3.7in]{figures/voned_cl_31}
 \includegraphics<12>[width=3.7in]{figures/voned_cl_40}
 \includegraphics<13-17>[width=3.7in]{figures/voned_cl_41}
-\includegraphics<18>[width=3.7in]{figures/voned_cl_41_amb_0}
-\includegraphics<19>[width=3.7in]{figures/voned_cl_41_amb_1}
-\includegraphics<20->[width=3.7in]{figures/voned_cl_41_amb_2}
+\includegraphics<18->[width=3.7in]{figures/voned_cl_41_amb_2}
 \end{center}
 \end{frame}
 
@@ -349,8 +347,9 @@ Gaussian processes to the rescue!
 \definecolor{c2}{RGB}{27,161,226}
 \definecolor{c6}{RGB}{140,191,38}
 \definecolor{c4}{RGB}{240,150,9}
-\definecolor{c5}{RGB}{255,255,255}
+\definecolor{c5}{RGB}{240,230,60}
 \definecolor{c3}{RGB}{230,113,184}
+\definecolor{cwhite}{RGB}{255,255,255}
 %\colorlet{c1}{cyan}
 %\colorlet{c2}{magenta}
 %\colorlet{c3}{red}
@@ -359,84 +358,87 @@ Gaussian processes to the rescue!
 
 \begin{frame}
 \begin{columns}[t]
-\column{0.45\textwidth}
-{\footnotesize
-\begin{algorithmic}
-  \REQUIRE sample set $D$, GP prior ($\mu_0$, $k$, $\sigma_0$),\\
-           \hspace{2.2em}thr. value $h$, accuracy parameter $\epsilon$
-  \ENSURE predicted sets $\hat{H}$, $\hat{L}$
-  \uncover<2->{
-  \CSTATE{c1}$H_0 \gets \varnothing$,\enskip $L_0 \gets \varnothing$,\enskip $U_0 \gets D$ \label{lin:init1}
-  %\LET{$H_0$}{$\varnothing$} \label{lin:init1}
-  %\LET{$L_0$}{$\varnothing$}
-  %\LET{$U_0$}{$D$}
-  \CLET{c1}{$C_0(\*x)$}{$\mathbb{R}$, for all $\*x \in D$} \label{lin:init2}
-  \CLET{c1}{$t$}{1}
-  }
-  \uncover<3->{
-  \CWHILE{c6}{$U_{t-1} \neq \varnothing$}
-    \CSTATE{c6}$H_t \gets H_{t-1}$,\enskip $L_t \gets L_{t-1}$,\enskip $U_t \gets U_{t-1}$
-    }
-    %\LET{$H_t$}{$H_{t-1}$}
-    %\LET{$L_t$}{$L_{t-1}$}
-    %\LET{$U_t$}{$U_{t-1}$}
-    \uncover<4->{
-    \CFORALL{c2}{$\*x \in U_{t-1}$}
-      \CLET{c2}{$C_{t}(\*x)$}{$C_{t-1}(\*x) \cap Q_t(\*x)$} \label{lin:upd}
-      \CIF{c2}{$\min(C_t(\*x)) + \epsilon > h$} \label{lin:class1}
-        \CLET{c2}{$U_t$}{$U_t \setminus \{\*x\}$}
-        \CLET{c2}{$H_t$}{$H_t \cup \{\*x\}$} 
-      \CELSIF{c2}{$\max(C_t(\*x)) - \epsilon \leq h$} \label{lin:classr2}
-        \CLET{c2}{$U_t$}{$U_t \setminus \{\*x\}$}
-        \CLET{c2}{$L_t$}{$L_t \cup \{\*x\}$}
-      \CENDIF{c2} \label{lin:class2}
-    \CENDFOR{c2}
-    }
-    \uncover<5->{
-    \CLET{c3}{$\*x_t$}{$\argmax \{a_t(\*x)\mid \*x \in U_t\}$} \label{lin:sel1}
-    \CLET{c3}{$y_t$}{$f(\*x_t) + n_t$} \label{lin:sel2}
-    }
-    \uncover<6->{
-    \CSTATE{c4}Compute $\mu_t(\*x)$ and $\sigma_t(\*x)$, $\forall\*x \in U_t$ \label{lin:inf}
-    }
-    \uncover<3->{
-    \CLET{c6}{$t$}{$t + 1$}
-  \CENDWHILE{c6}
-  }
-  \uncover<2->{
-  \CLET{c5}{$\hat{H}$}{$H_{t-1}$} \label{lin:ret1}
-  \CLET{c5}{$\hat{L}$}{$L_{t-1}$} \label{lin:ret2}
-  }
-\end{algorithmic}
-}
 \column{0.55\textwidth}
 \begin{center}
 The Level Set Estimation (\acl) algorithm
 \end{center}
-\only<3-6>{\vspace{34pt}$\leftarrow$ {\small loop until all points have been classified\\}\vspace{40pt}}
-\only<4-6>{$\leftarrow$ {\small classify\\}\vspace{52pt}}
-\only<5-6>{$\leftarrow$ {\small select max. ambiguity point\\}\vspace{3pt}}
-\only<6>{$\leftarrow$ {\small update GP estimate}}
-\only<7->{
-\vspace{3pt}
+\vspace{5pt}
+{\footnotesize
+\begin{algorithmic}
+  \REQUIRE sample space $D$, threshold level $h$
+  \ENSURE predicted super- and sublevel sets
+  \STATE
+  %\uncover<2->{
+  %\CSTATE{c1}$H_0 \gets \varnothing$,\enskip $L_0 \gets \varnothing$,\enskip $U_0 \gets D$ \label{lin:init1}
+  %\LET{$H_0$}{$\varnothing$} \label{lin:init1}
+  %\LET{$L_0$}{$\varnothing$}
+  %\LET{$U_0$}{$D$}
+  %\CLET{c1}{$C_0(\*x)$}{$\mathbb{R}$, for all $\*x \in D$} \label{lin:init2}
+  %\CLET{c1}{$t$}{1}
+  %}
+  \uncover<2->{
+  \CWHILE{cwhite}{$\exists$ unclassified points in $D$}
+    %\CSTATE{c6}$H_t \gets H_{t-1}$,\enskip $L_t \gets L_{t-1}$,\enskip $U_t \gets U_{t-1}$
+    }
+    %\LET{$H_t$}{$H_{t-1}$}
+    %\LET{$L_t$}{$L_{t-1}$}
+    %\LET{$U_t$}{$U_{t-1}$}
+    \uncover<3->{
+    \CFORALL{cwhite}{unclassified points $\*x\in D$}
+      \CIF{c2}{$C_t(\*x)$ lies above $h$}
+        \CSTATE{c2}classify $\*x$ into superlevel set
+      \CELSIF{c2}{$C_t(\*x)$ lies below $h$}
+        \CSTATE{c2}classify $\*x$ into sublevel set
+      \CELSE
+        \CSTATE{c2}leave $\*x$ unclassified
+      \CENDIF{c2} \label{lin:class2}
+    \CENDFOR{cwhite}
+    }
+    \uncover<4->{
+    \CLET{c3}{$\*x_t$}{$\argmax \{a_t(\*x)\mid \*x \in U_t\}$} \label{lin:sel1}
+    \CLET{c3}{$y_t$}{$f(\*x_t) + n_t$} \label{lin:sel2}
+    }
+    \uncover<5->{
+    \CSTATE{c4}perform GP inference
+    }
+    \uncover<2->{
+    %\CLET{c6}{$t$}{$t + 1$}
+  \CENDWHILE{cwhite}
+  }
+  %\uncover<2->{
+  %\CLET{c5}{$\hat{H}$}{$H_{t-1}$} \label{lin:ret1}
+  %\CLET{c5}{$\hat{L}$}{$L_{t-1}$} \label{lin:ret2}
+  %}
+\end{algorithmic}
+\vspace{30pt}
+}
+\column{0.45\textwidth}
+{\only<3-5>{\begin{center}\end{center}\vspace{83pt}}
+%\only<3-6>{\vspace{34pt}$\leftarrow$ {\small loop until all points have been classified\\}\vspace{40pt}}
+\only<3-5>{$\leftarrow$ {\small classify\\}\vspace{39pt}}
+\only<4-5>{$\leftarrow$ {\small sample\\}}
+%\only<6>{$\leftarrow$ {\small update GP estimate}}
+\only<6->{
+\vspace{15pt}
 \begin{itemize}
-\only<7->{
+\only<6->{
 \item Monotonicity of
 \begin{enumerate}
 \item confidence intervals
 \item classification
 \end{enumerate}
 }
-\vspace{0em}
-\only<8->{
-\item Relaxed classification rules by an accuracy parameter $\epsilon$\\
-      (trades off sampling cost for accuracy)
+\vspace{10pt}
+\only<7->{
+\item Relax classification rules by an accuracy parameter $\epsilon$
 }
 \end{itemize}
 }
+\vspace{-20pt}
 \begin{center}
-\includegraphics<8->[width=2.5in]{figures/voned_cl_41_eps}
+\includegraphics<7->[width=2.2in]{figures/voned_cl_41_amb_2}
 \end{center}
+}
 \end{columns}
 \end{frame}
 
@@ -754,7 +756,7 @@ an $\epsilon$-accurate solution, that is
 
 \begin{frame}
 \begin{theorem}[Simplified]
-If we choose $\beta_t$ large enough, then:
+If we choose $\beta$ appropriately (large enough), then:
 \begin{itemize}
 \item<2-> \acl terminates after a number of iterations $T$
 \begin{enumerate}
@@ -809,7 +811,7 @@ If we choose $\beta_t$ large enough, then:
 %\only<3>{\includegraphics[width=2.3in]{figures/ev_bgape_eps}}
 %\only<4>{\includegraphics[width=2.3in]{figures/ev_bgape_seq_str_sc}}
 %\only<5>{\hspace{-16pt}\includegraphics[width=3.77in]{figures/limno_bgape_class_354}}
-%\only<6>{\hspace{-16pt}\includegraphics[width=3.77in]{figures/limno_bgape_str_class_400}}
+\only<3>{\hspace{-16pt}\includegraphics[width=3.77in]{figures/limno_bgape_str_class_400}}
 %\only<7>{\hspace{-16pt}\includegraphics[width=3.77in]{figures/limno_bgape_var_class_400}}
 \end{center}
 \end{frame}
@@ -831,8 +833,8 @@ If we choose $\beta_t$ large enough, then:
 \vspace{1em}
 \item<5->\textbf{\iacl} algorithm:
 \begin{itemize}
-\item<6-> Need to accurately estimate the maximum $\rightarrow$ modified selection rule
-\item<7-> $h$ is now an estimated quantity $\rightarrow$ modified classification rules
+\item<6-> $h$ is now an estimated quantity $\rightarrow$ modified classification rules
+\item<7-> Need to accurately estimate the maximum $\rightarrow$ modified selection rule
 \end{itemize}
 \end{itemize}
 \begin{center}
@@ -876,7 +878,7 @@ If we choose $\beta_t$ large enough, then:
 \color{white}
 \includegraphics<1>[draft,width=3.78in]{figures/limno_bgape_class_20}
 \color{black}
-\includegraphics<2>[width=3.78in]{figures/limno_bgape_imp_class_0}
+\includegraphics<2>[width=3.78in]{figures/limno_bgape_class_0}
 \includegraphics<3>[width=3.78in]{figures/limno_bgape_imp_class_20}
 \includegraphics<4>[width=3.78in]{figures/limno_bgape_imp_class_40}
 \includegraphics<5>[width=3.78in]{figures/limno_bgape_imp_class_60}
@@ -951,13 +953,13 @@ If we choose $\beta_t$ large enough, then:
 
 \begin{frame}
 \begin{center}
-\large Come to the poster session for more\ldots
+\large In our paper, more\ldots
 \end{center}
 \begin{itemize}
-\item<2-> \ldots theory: sample complexity bounds in more detail
+\item<2-> \ldots theory: sample complexity bounds and their proofs in more detail
 \item<3-> \ldots applications: estimate world regions of low internet latency\\[0.5em]
 \hspace{3em}\includegraphics[height=2in]{figures/map}
-\item<4-> \ldots results: why does \acl greatly outperform ``straddle'' in some cases?
+\item<4-> \ldots experimental results
 \end{itemize}
 \end{frame}
 %\begin{itemize}

@@ -99,11 +99,11 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-tick label style={font=\normalsize},
-label style={font=\normalsize},
+tick label style={font=\Large},
+label style={font=\Large},
 xlabel shift={-10pt},
-ylabel shift={-17pt},
-legend style={font=\normalsize},
+ylabel shift={-15pt},
+legend style={font=\Large},
 view={0}{90},
 width=\figurewidth,
 height=\figureheight,
@@ -19765,14 +19765,14 @@ coordinates{
 % zurich
 \addplot [
 only marks,
-mark=x,mark size=4pt,
-mark options={solid,fill=blue!80!black,draw=blue!80!black,line width=2pt},
+mark=x,mark size=8pt,
+mark options={solid,fill=blue!80!black,draw=blue!80!black,line width=2.5pt},
 forget plot
 ]
 coordinates{
  (8.5380,47.3690) 
 };
-\node at (axis cs:-8, 75) [anchor=west,minimum size=20pt] {\color{blue!80!black}\small we are here};
+\node at (axis cs:-8, 75) [anchor=west,minimum size=20pt] {\color{blue!80!black}\Large we are here};
 \draw[->,line width=1.5pt,color=blue!80!black] (axis cs:2, 70) to[in=120,out=-90] (axis cs:7, 51);
 
 \end{axis}
